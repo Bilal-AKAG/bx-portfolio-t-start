@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="500" height="500" viewBox="0 0 500 500"
+     role="img" aria-label="Modern window favicon icon"
+     shape-rendering="geometricPrecision">
+  
+  <!-- Outer rounded square container (Favicon "App Icon" look) -->
+  <rect x="25" y="25" width="450" height="450" rx="90" ry="90" fill="#000000"/>
+
+  <!-- Main bold white frame -->
+  <rect x="103.75" y="81.25" width="292.5" height="337.5" rx="22.5" ry="22.5" fill="#ffffff"/>
+
+  <!-- Top panel (cutout using black) -->
+  <rect x="137.5" y="115" width="225" height="123.75" rx="11.25" ry="11.25" fill="#000000"/>
+
+  <!-- Bottom panel (cutout using black) -->
+  <rect x="137.5" y="261.25" width="225" height="123.75" rx="11.25" ry="11.25" fill="#000000"/>
+</svg>

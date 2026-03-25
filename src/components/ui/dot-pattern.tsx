@@ -1,0 +1,55 @@
+/* eslint-disable func-style, no-explicit-any */
+import { useId } from "react";
+
+import { cn } from "@/lib/utils";
+
+interface DotPatternProps {
+  width?: number;
+  height?: number;
+  x?: number;
+  y?: number;
+  cx?: number;
+  cy?: number;
+  cr?: number;
+  className?: string;
+  [key: string]: unknown;
+}
+export function DotPattern({
+  width = 24,
+  height = 24,
+  x = 0,
+  y = 0,
+  cx = 1,
+  cy = 0.5,
+  cr = 0.5,
+  className,
+  ...props
+}: DotPatternProps) {
+  const id = useId();
+
+  return (
+    <svg
+      aria-hidden="true"
+      className={cn(
+        "pointer-events-none inset-0 h-34 w-full fill-slate-500/50 md:fill-slate-500/70",
+        className
+      )}
+      {...props}
+    >
+      <defs>
+        <pattern
+          height={height}
+          id={id}
+          patternContentUnits="userSpaceOnUse"
+          patternUnits="userSpaceOnUse"
+          width={width}
+          x={x}
+          y={y}
+        >
+          <circle cx={cx} cy={cy} id="pattern-circle" r={cr} />
+        </pattern>
+      </defs>
+      <rect fill={`url(#${id})`} height="100%" strokeWidth={0} width="100%" />
+    </svg>
+  );
+}
