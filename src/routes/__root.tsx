@@ -23,6 +23,7 @@ interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	head: () => ({
 		meta: [
+			
 			{
 				charSet: 'utf-8',
 			},
@@ -31,7 +32,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				content: 'width=device-width, initial-scale=1',
 			},
 			{
-				title: 'TanStack Start Starter',
+				title: 'Bilal Ali | Software Engineer & Product Builder',
 			},
 		],
 		links: [
