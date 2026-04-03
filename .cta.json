@@ -11,9 +11,5 @@
   "routerOnly": false,
   "version": 1,
   "framework": "react",
-  "chosenAddOns": [
-    "compiler",
-    "shadcn",
-    "tanstack-query"
-  ]
+  "chosenAddOns": ["compiler", "shadcn", "tanstack-query"]
 }

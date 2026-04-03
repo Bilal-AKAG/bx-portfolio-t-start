@@ -1,4 +1,3 @@
-/* eslint-disable func-style */
 import { useInView } from "motion/react";
 import type { UseInViewOptions } from "motion/react";
 import * as React from "react";

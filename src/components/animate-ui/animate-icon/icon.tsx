@@ -1,4 +1,3 @@
-/* eslint-disable func-style, no-negated-condition, complexity, guard-for-in, no-duplicate-imports, no-inline-comments, no-plusplus, no-array-reduce, no-new-array, prefer-spread, prefer-await-to-then, import/no-duplicates */
 "use client";
 
 import type { SVGMotionProps, UseInViewOptions } from "motion/react";
@@ -126,7 +125,7 @@ function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+//
 type AnyProps = Record<string, any>;
 
 type SlotProps<E extends Element = HTMLElement> = {
@@ -249,7 +248,7 @@ function AnimateIcon({
     } else {
       stopAnimation();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //
   }, [animate]);
 
   React.useEffect(
@@ -483,7 +482,7 @@ function getVariants<
   V extends { default: T; [key: string]: T },
   T extends Record<string, Variants>,
 >(animations: V): T {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  //
   const { animation: animationType, loop, loopDelay } = useAnimateIconContext();
 
   let result: T;
@@ -506,7 +505,7 @@ function getVariants<
 
   if (loop) {
     for (const key in result) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      //
       const state = result[key] as any;
       const transition = state.animate?.transition;
       if (!transition) {

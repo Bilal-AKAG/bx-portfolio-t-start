@@ -1,31 +1,34 @@
-"use client";
-
 import { useQuery } from "@tanstack/react-query";
+
 import GithubContributionClient from "./github-contribution-client";
 
 const getData = async () => {
-  const res = await fetch(
-    "https://github-contributions-api.jogruber.de/v4/Bilal-AKAG?y=last"
-  );
+  try {
+    const res = await fetch(
+      "https://github-contributions-api.jogruber.de/v4/Bilal-AKAG?y=last"
+    );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch contribution data");
+    if (!res.ok) {
+      console.error("Failed to fetch contribution data:");
+      return null;
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching contribution data:", error);
+    return null;
   }
-
-  return res.json();
 };
 
 const GithubContribution = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["github-contributions"],
-    queryFn: getData,
-    staleTime: 3600 * 1000, // 1 hour
+  const { data } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["github-contribution"],
+    staleTime: 50 * 1000,
   });
 
-  if (isLoading || error || !data || !data.contributions) {
-    return (
-      <div className="px-4 mt-5 mb-3 min-h-[160px] flex flex-col justify-center animate-pulse bg-muted/20" />
-    );
+  if (!data || !data.contributions) {
+    return null;
   }
 
   return (

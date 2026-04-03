@@ -1,4 +1,3 @@
-/* eslint-disable func-style, no-negated-condition */
 "use client";
 
 import type { Variants } from "motion/react";

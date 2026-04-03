@@ -1,8 +1,8 @@
 "use client";
 
+import { useNavigate } from "@tanstack/react-router";
 import { ArrowUpRightIcon } from "lucide-react";
 import { AnimatePresence } from "motion/react";
-import { useNavigate } from "@tanstack/react-router";
 import { useRef } from "react";
 
 import {
@@ -19,7 +19,7 @@ const AnouncmentSection = () => {
   const handleAnnouncementClick = async () => {
     if (thanosRef.current) {
       // Start navigation immediately when snap animation begins
-      navigate({ to: "/blog" });
+      navigate({ to: "/about" });
       // Trigger the snap effect
       await thanosRef.current.handleClick();
     }

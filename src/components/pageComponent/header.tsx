@@ -92,19 +92,19 @@ const Navigations = () => {
                       <>
                         <CornerBracket
                           position="top-left"
-                          colorClass={"border-foreground"}
+                          colorClass="border-foreground"
                         />
                         <CornerBracket
                           position="top-right"
-                          colorClass={"border-foreground"}
+                          colorClass="border-foreground"
                         />
                         <CornerBracket
                           position="bottom-left"
-                          colorClass={"border-foreground"}
+                          colorClass="border-foreground"
                         />
                         <CornerBracket
                           position="bottom-right"
-                          colorClass={"border-foreground"}
+                          colorClass="border-foreground"
                         />
                       </>
                     ) : (

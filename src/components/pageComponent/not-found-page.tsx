@@ -1,14 +1,19 @@
-import { Link } from "@tanstack/react-router";
+import {Image} from "@unpic/react";
+import {Link} from "@tanstack/react-router";
 
 export default function NotFoundPage() {
   return (
     <div className="mb-24 flex min-h-screen w-full flex-col md:mb-0">
       <section className="relative flex flex-1 flex-col items-center justify-center gap-6 px-6 py-14 text-center">
-        <img
+        <Image
           aria-hidden
           src="/gradient-dither-5120x2880(1).png"
           alt=""
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-45"
+					priority
+					width={5120}
+					height={2880}
+					layout="constrained"
+          className="pointer-events-none absolute inset-0 object-cover opacity-45"
         />
         <div
           aria-hidden
