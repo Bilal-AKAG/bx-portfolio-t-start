@@ -19,7 +19,7 @@ const AnouncmentSection = () => {
   const handleAnnouncementClick = async () => {
     if (thanosRef.current) {
       // Start navigation immediately when snap animation begins
-      navigate({ to: "/about" });
+      navigate({ to: "/blog" });
       // Trigger the snap effect
       await thanosRef.current.handleClick();
     }

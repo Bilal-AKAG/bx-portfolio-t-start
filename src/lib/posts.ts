@@ -1,37 +1,94 @@
-import { createSource } from "fumadocs-core/source";
-import { defineConfig } from "fumadocs-mdx/config";
-import type { PostMeta } from "./types"; // create this or inline
+import { createServerFn } from "@tanstack/react-start";
 
-const source = createSource({
-  baseUrl: "/blog",
-  contentDir: "/content",           // your existing folder
-  source: defineConfig({}),        // uses source.config.ts
-});
+import { blogSource } from "@/lib/source";
 
-export type Post = {
-  slug: string;
-  meta: PostMeta;
-  content: React.ComponentType;   // the compiled MDX component
-};
-
-export async function getAllPosts(): Promise<Post[]> {
-  const posts = await source.getPages();
-  return posts
-    .map((page) => ({
-      slug: page.slugs.join("/"),
-      meta: page.data as PostMeta,
-      content: page.data.body,
-    }))
-    .sort((a, b) => (b.meta.date > a.meta.date ? 1 : -1));
+export interface BlogPostMetaDto {
+  title: string;
+  tag: string;
+  time: string;
+  date: string;
+  description: string;
+  author?: string;
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const page = await source.getPage([slug]);
-  if (!page) return null;
+export interface BlogPostListItemDto {
+  slug: string;
+  path: string;
+  url: string;
+  meta: BlogPostMetaDto;
+}
+
+export interface BlogPostPageDto {
+  slug: string;
+  path: string;
+  url: string;
+  meta: BlogPostMetaDto;
+}
+
+type UnknownRecord = Record<string, unknown>;
+
+function isRecord(value: unknown): value is UnknownRecord {
+  return typeof value === "object" && value !== null;
+}
+
+function getStringValue(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : fallback;
+}
+
+function getDateValue(value: unknown): string {
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+
+  if (typeof value === "string" && value.length > 0) {
+    return value;
+  }
+
+  return new Date().toISOString();
+}
+
+function normalizePostMeta(meta: unknown): BlogPostMetaDto {
+  const record = isRecord(meta) ? meta : {};
 
   return {
-    slug,
-    meta: page.data as PostMeta,
-    content: page.data.body,
+    title: getStringValue(record.title),
+    tag: getStringValue(record.tag),
+    time: getStringValue(record.time),
+    date: getDateValue(record.date),
+    description: getStringValue(record.description),
+    author: typeof record.author === "string" ? record.author : undefined,
   };
 }
+
+export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
+  const posts = blogSource
+    .getPages()
+    .map((page) => ({
+      slug: page.slugs.join("/"),
+      path: page.path,
+      url: page.url,
+      meta: normalizePostMeta(page.data),
+    }))
+    .sort((firstPost, secondPost) =>
+      firstPost.meta.date < secondPost.meta.date ? 1 : -1
+    );
+
+  return posts satisfies BlogPostListItemDto[];
+});
+
+export const getPostPage = createServerFn({ method: "GET" })
+  .inputValidator((input: { slug: string }) => input)
+  .handler(async ({ data }) => {
+    const page = blogSource.getPage([data.slug]);
+
+    if (!page) {
+      return null;
+    }
+
+    return {
+      slug: page.slugs.join("/"),
+      path: page.path,
+      url: page.url,
+      meta: normalizePostMeta(page.data),
+    } satisfies BlogPostPageDto;
+  });

@@ -5,12 +5,13 @@ import viteReact from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
 import { defineConfig } from "vite";
 
-import * as MdxConfig from "@/lib/source.config";
+import * as MdxConfig from "./src/lib/source.config";
+
 const config = defineConfig({
   plugins: [
+    mdx(MdxConfig),
     devtools(),
     tailwindcss(),
-    mdx(MdxConfig),
     tanstackStart(),
     viteReact(),
   ],

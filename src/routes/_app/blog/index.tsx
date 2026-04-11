@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { getPosts } from "@/lib/posts.server";
+import { getPosts } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 
 export const Route = createFileRoute("/_app/blog/")({
@@ -12,7 +12,7 @@ function BlogPage() {
   const posts = Route.useLoaderData();
 
   return (
-    <div className="m-auto flex min-h-[calc(100dvh-100px)] max-w-[700px] w-full flex-col overflow-hidden border-x border-dashed border-border-primary bg-background px-4 py-8 font-mono md:px-6">
+    <div className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-[700px] flex-col overflow-hidden border-x border-dashed border-border-primary bg-background px-4 py-8 font-mono md:px-6">
       <div className="mb-12 flex flex-col gap-4">
         <div className="flex items-baseline gap-4">
           <h2 className="px-5 text-2xl font-bold tracking-tight text-foreground">

@@ -1,6 +1,6 @@
 import { defineCollections } from "fumadocs-mdx/config";
 
-export const docs = defineCollections({
+export const blog = defineCollections({
   type: "doc",
-  dir: "./content",
+  dir: "src/content",
 });

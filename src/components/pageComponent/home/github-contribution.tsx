@@ -24,7 +24,7 @@ const GithubContribution = () => {
   const { data } = useQuery({
     queryFn: () => getData(),
     queryKey: ["github-contribution"],
-    staleTime: 50 * 1000,
+    staleTime: 50 * 60 * 1000,
   });
 
   if (!data || !data.contributions) {
