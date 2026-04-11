@@ -1,5 +1,3 @@
-import React from "react";
-
 const Heart = () => (
   <svg
     className="opacity-70"

@@ -1,9 +1,7 @@
-/* eslint-disable func-style */
 "use client";
 
 import { motion } from "motion/react";
 import type { Variants } from "motion/react";
-import * as React from "react";
 
 import {
   getVariants,

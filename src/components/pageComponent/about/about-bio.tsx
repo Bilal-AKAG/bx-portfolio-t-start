@@ -1,5 +1,4 @@
 import { Image } from "@unpic/react";
-import React from "react";
 
 import { MailCheckIcon } from "@/components/ui/mail-check";
 import { Telegram } from "@/components/ui/svgs/telegram";
@@ -26,39 +25,6 @@ const CornerBracket = ({
     />
   );
 };
-
-const _SchematicRow = ({
-  label,
-  value,
-  isStatus = false,
-}: {
-  label: string;
-  value: React.ReactNode;
-  isStatus?: boolean;
-}) => (
-  <div className="group flex items-center justify-between py-3 border-b border-dashed border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-white/[0.02] transition-colors pl-2 relative">
-    <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-zinc-400 dark:bg-zinc-700 opacity-0 dark:opacity-0 group-hover:opacity-100 transition-opacity" />
-
-    <div className="flex items-center gap-4 w-full">
-      <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-500 uppercase tracking-widest min-w-[80px] shrink-0">
-        {label}
-      </span>
-
-      <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-900 group-hover:bg-zinc-300 dark:group-hover:bg-zinc-800 transition-colors" />
-
-      <span
-        className={cn(
-          "font-doto text-sm truncate",
-          isStatus
-            ? "text-emerald-500 dark:text-emerald-400"
-            : "text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors"
-        )}
-      >
-        {value}
-      </span>
-    </div>
-  </div>
-);
 
 const AboutBio = () => {
   const birthDate = new Date(2005, 11, 18);

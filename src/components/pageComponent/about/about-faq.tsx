@@ -1,5 +1,4 @@
 import { HelpCircle } from "lucide-react";
-import React from "react";
 
 import {
   Accordion,
@@ -40,7 +39,7 @@ const AboutFAQ = () => (
     <Accordion type="multiple" className="w-full">
       {faqs.map((faq, index) => (
         <AccordionItem
-          key={index}
+          key={faq.question}
           value={`faq-${index}`}
           className="border-b-0 mb-2 last:mb-0 relative"
         >

@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 const hobbies = [
   {
     desc: "Exploring the latest in hardware innovation and gadgets.",

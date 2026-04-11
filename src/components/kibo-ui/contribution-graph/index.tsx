@@ -1,4 +1,3 @@
-/* eslint-disable no-inline-comments, no-plusplus, no-array-reduce, no-new-array, prefer-spread */
 "use client";
 
 import type { Day as WeekDay } from "date-fns";
@@ -111,7 +110,7 @@ const fillHoles = (activities: Activity[]): Activity[] => {
   }
 
   // Sort activities by date to ensure correct date range
-  const sortedActivities = [...activities].toSorted((a, b) =>
+  const sortedActivities = [...activities].sort((a, b) =>
     a.date.localeCompare(b.date)
   );
 

@@ -2,17 +2,19 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
   HeadContent,
+  Outlet,
   Scripts,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { ThemeProvider } from "better-themes";
+import { Toaster } from "sileo";
 
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
-import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
+import NotFoundPage from "@/components/pageComponent/not-found-page";
+import TanStackQueryDevtools from "@/integrations/tanstack-query/devtools";
+import TanStackQueryProvider from "@/integrations/tanstack-query/root-provider";
 
-import appCss from "../styles.css?url";
+import appCss from "@/styles.css?url";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -25,46 +27,116 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         href: appCss,
         rel: "stylesheet",
       },
+      {
+        href: "/favicon.ico",
+        rel: "icon",
+      },
+      {
+        href: "/apple-icon.png",
+        rel: "apple-touch-icon",
+      },
+      {
+        href: "/manifest.json",
+        rel: "manifest",
+      },
     ],
     meta: [
       {
-        charSet: "utf8",
+        charSet: "utf-8",
       },
       {
-        content: "width=device-width, initial-scale=1",
+        content:
+          "Fullstack developer building reliable web and mobile apps. I focus on clean UI, great UX, and practical solutions. Shipping features that matter.",
+        name: "description",
+      },
+      {
+        content: "width=device-width, initial-scale=1, maximum-scale=1",
         name: "viewport",
+      },
+      {
+        content: "#18181B",
+        name: "theme-color",
+      },
+      {
+        content: "Bilal",
+        name: "apple-mobile-web-app-title",
+      },
+      {
+        content: "website",
+        property: "og:type",
+      },
+      {
+        content: "Bilal",
+        property: "og:site_name",
+      },
+      {
+        content: "en_US",
+        property: "og:locale",
+      },
+      {
+        content: "https://bilal.works",
+        property: "og:url",
       },
       {
         title: "Bilal Ali | Software Engineer & Product Builder",
       },
     ],
   }),
-  shellComponent: RootDocument,
+  component: RootComponent,
+  notFoundComponent: NotFoundPage,
 });
+
+function RootComponent() {
+  return (
+    <RootDocument>
+      <Outlet />
+    </RootDocument>
+  );
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="smooth-scrolling"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <head>
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="bg-background font-mono relative">
         <TanStackQueryProvider>
-          <Header />
-          {children}
-          <Footer />
-          <TanStackDevtools
-            config={{
-              position: "bottom-right",
-            }}
-            plugins={[
-              {
-                name: "Tanstack Router",
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-              TanStackQueryDevtools,
-            ]}
-          />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            disableTransitionOnChange
+            enableSystem
+          >
+            {children}
+            <Toaster
+              position="top-center"
+              options={{
+                fill: "black",
+                styles: {
+                  description: "text-sm! text-white/70! font-mono",
+                  title: "text-sm! text-white! font-mono",
+                },
+              }}
+            />
+            <TanStackDevtools
+              config={{
+                position: "bottom-right",
+              }}
+              plugins={[
+                {
+                  name: "Tanstack Router",
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+                TanStackQueryDevtools,
+              ]}
+            />
+          </ThemeProvider>
         </TanStackQueryProvider>
         <Scripts />
       </body>

@@ -1,74 +1,70 @@
-import type React from "react";
+import matter from "gray-matter";
+
+interface PostMeta {
+  title: string;
+  tag: string;
+  time: string;
+  date: string;
+  description: string;
+  author?: string;
+  [key: string]: unknown;
+}
 
 export interface Post {
   slug: string;
-  meta: {
-    title: string;
-    tag: string;
-    time: string;
-    date: string;
-    description: string;
-    author?: string;
-    [key: string]: any;
-  };
-  Content: React.ComponentType<any>;
+  meta: PostMeta;
+  content: string;
 }
 
-// glob imports provide the default export (the component) and frontmatter
-// when configured with remark-mdx-frontmatter
-export const postModules = import.meta.glob("../content/*.mdx", {
+const postFiles = import.meta.glob("../content/*.mdx", {
   eager: true,
-}) as Record<string, { default: React.ComponentType<any>; frontmatter: any }>;
+  import: "default",
+  query: "?raw",
+}) as Record<string, string>;
 
-export function getPostSlugs() {
-  return Object.keys(postModules).map((path) =>
+const defaultMeta: PostMeta = {
+  date: new Date().toISOString(),
+  description: "",
+  tag: "",
+  time: "",
+  title: "",
+};
+
+function parsePost(path: string, source: string): Post {
+  const slug = path.replace("../content/", "").replace(".mdx", "");
+  const { content, data } = matter(source);
+
+  const meta = {
+    ...defaultMeta,
+    ...(typeof data === "object" && data ? data : {}),
+  } as PostMeta;
+
+  return {
+    slug,
+    meta,
+    content,
+  };
+}
+
+export function getPostSlugs(): string[] {
+  return Object.keys(postFiles).map((path) =>
     path.replace("../content/", "").replace(".mdx", "")
   );
 }
 
 export function getPostBySlug(slug: string): Post | undefined {
   const fullPath = `../content/${slug}.mdx`;
-  const module = postModules[fullPath];
-  if (!module) {
+  const source = postFiles[fullPath];
+
+  if (!source) {
     return undefined;
   }
 
-  const meta = {
-    date: new Date().toISOString(),
-    description: "",
-    tag: "",
-    time: "",
-    title: "",
-    ...module.frontmatter,
-  };
-
-  return {
-    Content: module.default,
-    meta,
-    slug,
-  };
+  return parsePost(fullPath, source);
 }
 
 export function getAllPosts(): Post[] {
-  return Object.entries(postModules)
-    .map(([path, module]) => {
-      const slug = path.replace("../content/", "").replace(".mdx", "");
-      const meta = {
-        date: new Date().toISOString(),
-        description: "",
-        tag: "",
-        time: "",
-        title: "",
-        ...module.frontmatter,
-      };
-
-      return {
-        Content: module.default,
-        meta,
-        slug,
-      } as Post;
-    })
-    .toSorted((post1, post2) =>
-      new Date(post1.meta.date) > new Date(post2.meta.date) ? -1 : 1
-    );
+  return Object.entries(postFiles)
+    .map(([path, source]) => parsePost(path, source))
+    .sort((post1, post2) => (post1.meta.date > post2.meta.date ? -1 : 1));
 }

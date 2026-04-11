@@ -11,7 +11,8 @@ export function getRouter() {
 
     defaultPreloadStaleTime: 0,
     routeTree,
-    scrollRestoration: true,
+		scrollRestoration: true,
+		scrollRestorationBehavior:"instant"
   });
 
   return router;

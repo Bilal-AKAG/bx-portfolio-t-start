@@ -1,4 +1,3 @@
-/* eslint-disable no-promise-executor-return, no-shadow, prefer-add-event-listener, prefer-dom-node-remove, promise/avoid-new, unicorn/consistent-function-scoping */
 "use client";
 
 import JSZip from "jszip";
