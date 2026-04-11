@@ -56,13 +56,11 @@ const AboutBio = () => {
           <div className="relative size-[180px] overflow-hidden transition-all duration-700 border border-zinc-200 dark:border-zinc-900 group-hover/frame:border-zinc-400 dark:group-hover/frame:border-zinc-800">
             <Image
               src="/dithered-image.png"
-              alt="Bilal"
-              width={180}
-              height={180}
-              layout="constrained"
+							alt="Bilal"
+							width={180}
+							height={180}
               priority
-              sizes="(max-width: 768px) 180px, 180px"
-              className="object-cover"
+              className="object-contain"
             />
           </div>
 

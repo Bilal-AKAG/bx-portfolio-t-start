@@ -67,7 +67,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
       {/* Preview Area - Website Placeholder */}
       <div className="relative aspect-video overflow-hidden border border-border-primary border-dashed dark:bg-bg-panel/50 p-4 transition-all duration-500 group-hover:bg-muted/50 dark:group-hover:bg-zinc-900/40">
         {/* Website Mockup Placeholder */}
-        <div className="flex h-full w-full flex-col overflow-hidden rounded-sm border border-border-primary/50 bg-bg-base/80 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+        <div className="flex h-full w-full flex-col overflow-hidden rounded-sm border border-border-primary/50 bg-bg-base/80  transition-transform duration-500 group-hover:scale-[1.02]">
           {/* Browser Header */}
           <div className="flex items-center gap-1.5 border-b border-border-primary/50 bg-muted px-3 py-2 dark:bg-zinc-900/50">
             <div className="flex gap-1">

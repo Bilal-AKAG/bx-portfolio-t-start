@@ -8,7 +8,7 @@ import Projects from "@/components/pageComponent/home/projects";
 import Separator from "@/components/pageComponent/separator";
 
 export const Route = createFileRoute("/_app/")({
-  component: HomePage,
+	component: HomePage,
 });
 
 function HomePage() {

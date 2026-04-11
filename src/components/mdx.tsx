@@ -132,7 +132,7 @@ export function getMDXComponents() {
       <h2
         {...props}
         className={cn(
-          "mt-10 scroll-m-20 border-b border-border pb-2 font-doto text-xl font-bold tracking-tight text-foreground first:mt-0",
+          "mt-10 scroll-m-20 border-b border-border pb-2  text-xl font-bold tracking-tight text-foreground first:mt-0",
           className
         )}
       />
