@@ -1,6 +1,12 @@
 "use client";
 
 import { Link, useLocation } from "@tanstack/react-router";
+import {
+  IconHouse,
+  IconCircleQuestion,
+  IconSparkle,
+  IconSquareFeather,
+} from "nucleo-glass";
 
 import { CircleHelpIcon } from "@/components/ui/icons/circle-help";
 import { HomeIcon } from "@/components/ui/icons/home";
@@ -14,20 +20,20 @@ import {
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", icon: <HomeIcon size={18} />, label: "Home" },
+  { href: "/", icon: <IconHouse size={18} />, label: "Home" },
   {
     href: "/about",
-    icon: <CircleHelpIcon size={18} />,
+    icon: <IconCircleQuestion size={18} />,
     label: "About",
   },
   {
     href: "/skill",
-    icon: <SparklesIcon size={18} />,
+    icon: <IconSparkle size={18} />,
     label: "Skill",
   },
   {
     href: "/blog",
-    icon: <SquarePenIcon size={18} />,
+    icon: <IconSquareFeather size={18} />,
     label: "Blog",
   },
 ];
