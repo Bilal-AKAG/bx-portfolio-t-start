@@ -13,26 +13,25 @@ import {
   subWeeks,
 } from "date-fns";
 import {
+  type CSSProperties,
   createContext,
   Fragment,
+  type HTMLAttributes,
+  type ReactNode,
   useContext,
   useMemo,
-  useRef,
-  useEffect,
 } from "react";
-import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import { cn } from "#/lib/utils";
 
-import { cn } from "@/lib/utils";
-
-export interface Activity {
+export type Activity = {
   date: string;
   count: number;
   level: number;
-}
+};
 
-type Week = (Activity | undefined)[];
+type Week = Array<Activity | undefined>;
 
-export interface Labels {
+export type Labels = {
   months?: string[];
   weekdays?: string[];
   totalCount?: string;
@@ -40,12 +39,12 @@ export interface Labels {
     less?: string;
     more?: string;
   };
-}
+};
 
-interface MonthLabel {
+type MonthLabel = {
   weekIndex: number;
   label: string;
-}
+};
 
 const DEFAULT_MONTH_LABELS = [
   "Jan",
@@ -63,16 +62,16 @@ const DEFAULT_MONTH_LABELS = [
 ];
 
 const DEFAULT_LABELS: Labels = {
+  months: DEFAULT_MONTH_LABELS,
+  weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  totalCount: "{{count}} activities in {{year}}",
   legend: {
     less: "Less",
     more: "More",
   },
-  months: DEFAULT_MONTH_LABELS,
-  totalCount: "{{count}} activities in {{year}}",
-  weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
 };
 
-interface ContributionGraphContextType {
+type ContributionGraphContextType = {
   data: Activity[];
   weeks: Week[];
   blockMargin: number;
@@ -87,7 +86,7 @@ interface ContributionGraphContextType {
   year: number;
   width: number;
   height: number;
-}
+};
 
 const ContributionGraphContext =
   createContext<ContributionGraphContextType | null>(null);
@@ -126,8 +125,8 @@ const fillHoles = (activities: Activity[]): Activity[] => {
   }
 
   return eachDayOfInterval({
-    end: parseISO(lastActivity.date),
     start: parseISO(firstActivity.date),
+    end: parseISO(lastActivity.date),
   }).map((day) => {
     const date = formatISO(day, { representation: "date" });
 
@@ -136,8 +135,8 @@ const fillHoles = (activities: Activity[]): Activity[] => {
     }
 
     return {
-      count: 0,
       date,
+      count: 0,
       level: 0,
     };
   });
@@ -161,7 +160,7 @@ const groupByWeeks = (
 
   const paddedActivities = [
     ...(new Array(differenceInCalendarDays(firstDate, firstCalendarDate)).fill(
-      null
+      undefined
     ) as Activity[]),
     ...normalizedActivities,
   ];
@@ -169,7 +168,7 @@ const groupByWeeks = (
   const numberOfWeeks = Math.ceil(paddedActivities.length / 7);
 
   return new Array(numberOfWeeks)
-    .fill(null)
+    .fill(undefined)
     .map((_, weekIndex) =>
       paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7)
     );
@@ -178,8 +177,8 @@ const groupByWeeks = (
 const getMonthLabels = (
   weeks: Week[],
   monthNames: string[] = DEFAULT_MONTH_LABELS
-): MonthLabel[] =>
-  weeks
+): MonthLabel[] => {
+  return weeks
     .reduce<MonthLabel[]>((labels, week, weekIndex) => {
       const firstActivity = week.find((activity) => activity !== undefined);
 
@@ -203,7 +202,7 @@ const getMonthLabels = (
       const prevLabel = labels.at(-1);
 
       if (weekIndex === 0 || !prevLabel || prevLabel.label !== month) {
-        return labels.concat({ label: month, weekIndex });
+        return labels.concat({ weekIndex, label: month });
       }
 
       return labels;
@@ -221,6 +220,7 @@ const getMonthLabels = (
 
       return true;
     });
+};
 
 export type ContributionGraphProps = HTMLAttributes<HTMLDivElement> & {
   data: Activity[];
@@ -243,10 +243,10 @@ export const ContributionGraph = ({
   blockRadius = 0,
   blockSize = 12,
   fontSize = 14,
-  labels: labelsProp,
+  labels: labelsProp = undefined,
   maxLevel: maxLevelProp = 4,
   style = {},
-  totalCount: totalCountProp,
+  totalCount: totalCountProp = undefined,
   weekStart = 0,
   className,
   ...props
@@ -278,20 +278,20 @@ export const ContributionGraph = ({
   return (
     <ContributionGraphContext.Provider
       value={{
+        data,
+        weeks,
         blockMargin,
         blockRadius,
         blockSize,
-        data,
         fontSize,
-        height,
-        labelHeight,
         labels,
+        labelHeight,
         maxLevel,
         totalCount,
         weekStart,
-        weeks,
-        width,
         year,
+        width,
+        height,
       }}
     >
       <div
@@ -371,52 +371,6 @@ export const ContributionGraphCalendar = ({
   const { weeks, width, height, blockSize, blockMargin, labels } =
     useContributionGraph();
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-
-      // Find the peak contribution period by calculating activity density
-      // We'll use a sliding window approach to find the most active period
-      const windowSize = 8; // 8 weeks window to capture peak period
-      let maxActivitySum = 0;
-      let peakWindowStartIndex = 0;
-
-      for (let i = 0; i <= weeks.length - windowSize; i++) {
-        const windowSum = weeks
-          .slice(i, i + windowSize)
-          .reduce(
-            (sum, week) =>
-              sum +
-              week.reduce((weekSum, day) => weekSum + (day?.count || 0), 0),
-            0
-          );
-
-        if (windowSum > maxActivitySum) {
-          maxActivitySum = windowSum;
-          peakWindowStartIndex = i;
-        }
-      }
-
-      // If we found activity, scroll to show the peak period centered
-      if (maxActivitySum > 0) {
-        const weekWidth = blockSize + blockMargin;
-        // Center the peak window in the viewport
-        const peakCenterIndex =
-          peakWindowStartIndex + Math.floor(windowSize / 2);
-        const scrollPosition =
-          peakCenterIndex * weekWidth -
-          container.clientWidth / 2 +
-          weekWidth / 2;
-        container.scrollLeft = Math.max(0, scrollPosition);
-      } else {
-        // Fallback to end if no activity found
-        container.scrollLeft = container.scrollWidth;
-      }
-    }
-  }, [weeks, blockSize, blockMargin]);
-
   const monthLabels = useMemo(
     () => getMonthLabels(weeks, labels.months),
     [weeks, labels.months]
@@ -424,11 +378,7 @@ export const ContributionGraphCalendar = ({
 
   return (
     <div
-      ref={scrollContainerRef}
-      className={cn(
-        "max-w-full overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
-        className
-      )}
+      className={cn("max-w-full overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]", className)}
       {...props}
     >
       <svg
@@ -535,7 +485,7 @@ export const ContributionGraphLegend = ({
       <span className="mr-1 text-muted-foreground">
         {labels.legend?.less || "Less"}
       </span>
-      {new Array(maxLevel + 1).fill(null).map((_, level) =>
+      {new Array(maxLevel + 1).fill(undefined).map((_, level) =>
         children ? (
           <Fragment key={level}>{children({ level })}</Fragment>
         ) : (
