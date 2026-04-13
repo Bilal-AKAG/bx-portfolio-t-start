@@ -5,6 +5,7 @@ import { Check, Copy, Loader2, MousePointerClick, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { sileo } from "sileo";
+import { IconButton, IconClipboard, IconDocFolder, IconImage, IconImageDepth } from "nucleo-glass";
 
 import {
   Tooltip,
@@ -312,7 +313,7 @@ const Footer = () => {
             <TooltipContent>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <span className="text-white ">Right-click</span>
-                <MousePointerClick className="w-4 h-4 " fill="white" />
+                <IconButton className="h-4 w-4"/>
               </div>
             </TooltipContent>
           </Tooltip>
@@ -340,7 +341,7 @@ const Footer = () => {
           <motion.div
             id="footer-context-menu"
             ref={menuRef}
-            className="fixed z-[100] min-w-[200px] border border-border-primary bg-bg-panel p-1.5 shadow-2xl"
+            className="fixed z-[100] min-w-[200px] border border-border-primary bg-black dark:bg-bg-panel p-1.5 shadow-2xl"
             style={{
               left: menuPosition.x,
               top: menuPosition.y,
@@ -374,15 +375,10 @@ const Footer = () => {
           >
             <button
               onClick={handleCopySVG}
-              className="group/item flex cursor-pointer  w-full items-center gap-3 px-3 py-2 text-left text-[11px] font-mono text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="group/item flex cursor-pointer  w-full items-center gap-3 px-3 py-2 text-left text-[11px] font-mono text-white transition-colors hover:bg-accent hover:text-accent-foreground"
             >
-              <span className="text-muted-foreground/60 font-normal">
-                [{" "}
-                <span className="text-muted-foreground group-hover/item:text-accent-foreground">
-                  &lt; &gt;
-                </span>{" "}
-                ]
-              </span>
+              
+              <IconClipboard className="h-4 w-4"/>
               <span>Copy Logo as SVG</span>
             </button>
 
@@ -395,13 +391,7 @@ const Footer = () => {
               }}
               className="group/item flex cursor-pointer w-full items-center gap-3 px-3 py-2 text-left text-[11px] font-mono text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
-              <span className="text-muted-foreground/60 font-normal">
-                [{" "}
-                <span className="text-muted-foreground group-hover/item:text-accent-foreground">
-                  IMG
-                </span>{" "}
-                ]
-              </span>
+              <IconImage className="h-4 w-4"/>
               <span>Download Logo PNG</span>
             </button>
 
@@ -412,13 +402,7 @@ const Footer = () => {
               }}
               className="group/item flex cursor-pointer w-full items-center gap-3 px-3 py-2 text-left text-[11px] font-mono text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
-              <span className="text-muted-foreground/60 font-normal">
-                [{" "}
-                <span className="text-muted-foreground group-hover/item:text-accent-foreground">
-                  SVG
-                </span>{" "}
-                ]
-              </span>
+              <IconImageDepth className="h-4 w-4" />
               <span>Download Logo SVG</span>
             </button>
 
@@ -428,13 +412,7 @@ const Footer = () => {
               onClick={handleDownloadAssets}
               className="group/item flex cursor-pointer w-full items-center gap-3 px-3 py-2 text-left text-[11px] font-mono text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
-              <span className="text-muted-foreground/60 font-normal">
-                [{" "}
-                <span className="text-muted-foreground group-hover/item:text-accent-foreground">
-                  ASSET
-                </span>{" "}
-                ]
-              </span>
+              <IconDocFolder className="h-4 w-4" />
               <span>Brand Assets</span>
             </button>
           </motion.div>
