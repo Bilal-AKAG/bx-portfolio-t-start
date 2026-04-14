@@ -8,10 +8,6 @@ import {
   IconSquareFeather,
 } from "nucleo-glass";
 
-import { CircleHelpIcon } from "@/components/ui/icons/circle-help";
-import { HomeIcon } from "@/components/ui/icons/home";
-import { SparklesIcon } from "@/components/ui/icons/sparkle";
-import { SquarePenIcon } from "@/components/ui/icons/square-pen";
 import {
   Tooltip,
   TooltipContent,
@@ -129,7 +125,7 @@ const Navigations = () => {
                     </span>
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent side="top">
+                <TooltipContent side="top" className="hidden sm:block">
                   <p>{item.label}</p>
                 </TooltipContent>
               </Tooltip>
