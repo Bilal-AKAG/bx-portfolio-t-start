@@ -9,6 +9,11 @@ export interface BlogPostMetaDto {
   date: string;
   description: string;
   author?: string;
+  image?: string;
+  imageAlt?: string;
+  keywords?: string[];
+  modifiedTime?: string;
+  publishedTime?: string;
 }
 
 export interface BlogPostListItemDto {
@@ -35,6 +40,28 @@ function getStringValue(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value : fallback;
 }
 
+function getOptionalStringValue(value: unknown): string | undefined {
+  if (typeof value !== "string") {
+    return undefined;
+  }
+
+  const normalizedValue = value.trim();
+
+  return normalizedValue.length > 0 ? normalizedValue : undefined;
+}
+
+function getStringArrayValue(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) {
+    return undefined;
+  }
+
+  const normalizedValues = value.filter(
+    (entry): entry is string => typeof entry === "string" && entry.trim().length > 0
+  );
+
+  return normalizedValues.length > 0 ? normalizedValues : undefined;
+}
+
 function getDateValue(value: unknown): string {
   if (value instanceof Date) {
     return value.toISOString();
@@ -56,7 +83,12 @@ function normalizePostMeta(meta: unknown): BlogPostMetaDto {
     time: getStringValue(record.time),
     date: getDateValue(record.date),
     description: getStringValue(record.description),
-    author: typeof record.author === "string" ? record.author : undefined,
+    author: getOptionalStringValue(record.author),
+    image: getOptionalStringValue(record.image),
+    imageAlt: getOptionalStringValue(record.imageAlt),
+    keywords: getStringArrayValue(record.keywords),
+    modifiedTime: getOptionalStringValue(record.modifiedTime),
+    publishedTime: getOptionalStringValue(record.publishedTime),
   };
 }
 

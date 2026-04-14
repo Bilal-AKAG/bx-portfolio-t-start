@@ -14,6 +14,7 @@ import NotFoundPage from "@/components/pageComponent/not-found-page";
 import TanStackQueryDevtools from "@/integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "@/integrations/tanstack-query/root-provider";
 
+import { SITE_NAME } from "@/lib/seo";
 import appCss from "@/styles.css?url";
 
 interface MyRouterContext {
@@ -45,11 +46,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         charSet: "utf-8",
       },
       {
-        content:
-          "Fullstack developer building reliable web and mobile apps. I focus on clean UI, great UX, and practical solutions. Shipping features that matter.",
-        name: "description",
-      },
-      {
         content: "width=device-width, initial-scale=1, maximum-scale=1",
         name: "viewport",
       },
@@ -58,27 +54,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: "theme-color",
       },
       {
-        content: "Bilal",
+        content: SITE_NAME,
         name: "apple-mobile-web-app-title",
       },
       {
-        content: "website",
-        property: "og:type",
-      },
-      {
-        content: "Bilal",
-        property: "og:site_name",
-      },
-      {
-        content: "en_US",
-        property: "og:locale",
-      },
-      {
-        content: "https://bilal.works",
-        property: "og:url",
-      },
-      {
-        title: "Bilal Ali | Software Engineer & Product Builder",
+        content: "telephone=no",
+        name: "format-detection",
       },
     ],
   }),

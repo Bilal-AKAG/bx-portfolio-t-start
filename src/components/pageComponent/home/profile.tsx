@@ -25,11 +25,11 @@ const Profile = () => (
       {/* {name section with soical } */}
       <div className=" flex w-full items-center justify-between border-border-primary border-y border-dashed px-4">
         <div className="flex items-center gap-2">
-          <span
+          <h1
             className={cn("font-doto  font-medium text-3xl text-foreground")}
           >
             Bilal Ali
-          </span>
+          </h1>
           <Tooltip>
             <TooltipTrigger>
               <VerifiedIcon

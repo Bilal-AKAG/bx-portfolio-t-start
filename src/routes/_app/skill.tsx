@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import Separator from "@/components/pageComponent/separator";
+import { buildSeoHead } from "@/lib/seo";
 import SkillCard from "@/components/pageComponent/skill-card";
 import SkillSection from "@/components/pageComponent/skill-section";
 import { Bun } from "@/components/ui/svgs/bun";
@@ -32,11 +33,31 @@ import { Zed } from "@/components/ui/svgs/zed";
 
 export const Route = createFileRoute("/_app/skill")({
   component: SkillPage,
+  head: () =>
+    buildSeoHead({
+      canonicalPath: "/skill",
+      description:
+        "Explore Bilal Ali's frontend, backend, database, and infrastructure stack, including React, TanStack Start, Bun, Node.js, PostgreSQL, Docker, and more.",
+      imageAlt:
+        "Skills page preview showing Bilal Ali's development stack and tools of the trade.",
+      keywords: [
+        "Bilal Ali skills",
+        "full-stack developer skills",
+        "React developer",
+        "TanStack Start",
+        "Bun runtime",
+        "Node.js developer",
+        "PostgreSQL",
+        "Docker",
+      ],
+      title: "Skills & Tech Stack",
+      type: "website",
+    }),
 });
 
 function SkillPage() {
   return (
-    <div className="relative m-auto flex min-h-screen w-full max-w-[700px] flex-col overflow-hidden border-x border-dashed border-border-primary pb-0 pt-4 md:mb-0">
+    <div className="relative m-auto flex min-h-screen w-full max-w-175 flex-col overflow-hidden border-x border-dashed border-border-primary pb-0 pt-4 md:mb-0">
       <div className="relative z-10">
         <div className="space-y-4 px-6 py-8">
           <h1 className="font-mono text-3xl font-medium tracking-tight text-foreground dark:text-white">

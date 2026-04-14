@@ -10,6 +10,11 @@ export interface BlogPostMeta {
   tag?: string;
   time?: string;
   author?: string;
+  image?: string;
+  imageAlt?: string;
+  keywords?: string[];
+  modifiedTime?: string;
+  publishedTime?: string;
   [key: string]: unknown;
 }
 
