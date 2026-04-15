@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Doto:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 @import "tw-animate-css";
@@ -58,7 +57,7 @@
 	--radius: 0.625rem;
 
 	--font-figtree: "Figtree", ui-sans-serif, system-ui, sans-serif;
-	--font-doto: "Doto", ui-sans-serif, system-ui, sans-serif;
+	--font-doto: "Doto Variable", ui-sans-serif, system-ui, sans-serif;
 	--font-ioskeley-mono:
 		"Ioskeley Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
 	--font-jetbrain-mono:
