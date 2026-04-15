@@ -8,7 +8,7 @@ export const getGithubData = async () => {
       console.error("Failed to fetch contribution data:");
       return null;
     }
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.error("Error fetching contribution data:", error);
     return null;
