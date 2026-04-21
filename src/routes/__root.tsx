@@ -14,7 +14,7 @@ import { Toaster } from "sileo";
 import NotFoundPage from "@/components/pageComponent/not-found-page";
 import TanStackQueryDevtools from "@/integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "@/integrations/tanstack-query/root-provider";
-
+import { hotkeysDevtoolsPlugin } from '@tanstack/react-hotkeys-devtools'
 import { SITE_NAME } from "@/lib/seo";
 import appCss from "@/styles.css?url";
 
@@ -93,7 +93,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             attribute="class"
             defaultTheme="dark"
             disableTransitionOnChange
-            enableSystem
           >
             {children}
             <Toaster
@@ -107,15 +106,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               }}
             />
             <TanStackDevtools
-              config={{
-                position: "bottom-right",
+							config={{
+                position: "top-right",
               }}
               plugins={[
                 {
                   name: "Tanstack Router",
                   render: <TanStackRouterDevtoolsPanel />,
                 },
-                TanStackQueryDevtools,
+								TanStackQueryDevtools,
+								hotkeysDevtoolsPlugin()
               ]}
             />
           </ThemeProvider>

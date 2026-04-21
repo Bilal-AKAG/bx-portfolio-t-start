@@ -52,4 +52,4 @@ const TooltipContent = ({
   </TooltipPrimitive.Portal>
 );
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+export { Tooltip, TooltipTrigger, TooltipContent,  };

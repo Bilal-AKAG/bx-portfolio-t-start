@@ -35,7 +35,7 @@ export const Route = createFileRoute("/_app/blog/")({
           url: "https://bilal.works/blog",
         },
       ],
-      title: "Blog",
+      title: "Writings",
       type: "website",
     }),
 });

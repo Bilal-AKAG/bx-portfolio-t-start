@@ -239,9 +239,9 @@ function PartyPopper(props: PartyPopperProps) {
 }
 
 export {
-  animations,
+  
   PartyPopper,
-  PartyPopper as PartyPopperIcon,
-  type PartyPopperProps,
-  type PartyPopperProps as PartyPopperIconProps,
+  
+  
+  
 };

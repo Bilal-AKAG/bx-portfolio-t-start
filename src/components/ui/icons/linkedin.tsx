@@ -8,7 +8,7 @@ import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-export interface LinkedinIconHandle {
+interface LinkedinIconHandle {
   startAnimation: () => void;
   stopAnimation: () => void;
 }

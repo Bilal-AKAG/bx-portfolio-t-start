@@ -1,8 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
+import { allPosts } from "content-collections";
 
-import { blogSource } from "@/lib/source";
-
-export interface BlogPostMetaDto {
+interface BlogPostMetaDto {
   title: string;
   tag: string;
   time: string;
@@ -16,111 +15,95 @@ export interface BlogPostMetaDto {
   publishedTime?: string;
 }
 
-export interface BlogPostListItemDto {
+interface BlogPostListItemDto {
   slug: string;
   path: string;
   url: string;
   meta: BlogPostMetaDto;
 }
 
-export interface BlogPostPageDto {
+interface BlogPostPageDto {
   slug: string;
   path: string;
   url: string;
   meta: BlogPostMetaDto;
+  mdx: string;
 }
 
-type UnknownRecord = Record<string, unknown>;
+type ContentCollectionPost = (typeof allPosts)[number];
 
-function isRecord(value: unknown): value is UnknownRecord {
-  return typeof value === "object" && value !== null;
-}
-
-function getStringValue(value: unknown, fallback = ""): string {
-  return typeof value === "string" ? value : fallback;
-}
-
-function getOptionalStringValue(value: unknown): string | undefined {
-  if (typeof value !== "string") {
-    return undefined;
-  }
-
-  const normalizedValue = value.trim();
-
-  return normalizedValue.length > 0 ? normalizedValue : undefined;
-}
-
-function getStringArrayValue(value: unknown): string[] | undefined {
-  if (!Array.isArray(value)) {
-    return undefined;
-  }
-
-  const normalizedValues = value.filter(
-    (entry): entry is string => typeof entry === "string" && entry.trim().length > 0
-  );
-
-  return normalizedValues.length > 0 ? normalizedValues : undefined;
-}
-
-function getDateValue(value: unknown): string {
-  if (value instanceof Date) {
-    return value.toISOString();
-  }
-
-  if (typeof value === "string" && value.length > 0) {
-    return value;
-  }
-
-  return new Date().toISOString();
-}
-
-function normalizePostMeta(meta: unknown): BlogPostMetaDto {
-  const record = isRecord(meta) ? meta : {};
-
+function toPostMeta(post: ContentCollectionPost): BlogPostMetaDto {
   return {
-    title: getStringValue(record.title),
-    tag: getStringValue(record.tag),
-    time: getStringValue(record.time),
-    date: getDateValue(record.date),
-    description: getStringValue(record.description),
-    author: getOptionalStringValue(record.author),
-    image: getOptionalStringValue(record.image),
-    imageAlt: getOptionalStringValue(record.imageAlt),
-    keywords: getStringArrayValue(record.keywords),
-    modifiedTime: getOptionalStringValue(record.modifiedTime),
-    publishedTime: getOptionalStringValue(record.publishedTime),
+    title: post.title,
+    tag: post.tag,
+    time: post.time,
+    date: post.date,
+    description: post.description,
+    author: post.author,
+    image: post.image,
+    imageAlt: post.imageAlt,
+    keywords: post.keywords,
+    modifiedTime: post.modifiedTime,
+    publishedTime: post.publishedTime,
   };
 }
 
-export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
-  const posts = blogSource
-    .getPages()
-    .map((page) => ({
-      slug: page.slugs.join("/"),
-      path: page.path,
-      url: page.url,
-      meta: normalizePostMeta(page.data),
-    }))
-    .sort((firstPost, secondPost) =>
-      firstPost.meta.date < secondPost.meta.date ? 1 : -1
-    );
+function toSlug(path: string): string {
+  return path;
+}
 
-  return posts satisfies BlogPostListItemDto[];
+function toPostUrl(slug: string): string {
+  return `/blog/${slug}`;
+}
+
+function comparePostsByDate(
+  firstPost: BlogPostListItemDto,
+  secondPost: BlogPostListItemDto
+): number {
+  if (firstPost.meta.date === secondPost.meta.date) {
+    return 0;
+  }
+
+  return firstPost.meta.date < secondPost.meta.date ? 1 : -1;
+}
+
+function getPost(slug: string): ContentCollectionPost | undefined {
+  return allPosts.find((post) => toSlug(post._meta.path) === slug);
+}
+
+export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
+  const posts = allPosts
+    .map((post) => {
+      const slug = toSlug(post._meta.path);
+
+      return {
+        slug,
+        path: post._meta.path,
+        url: toPostUrl(slug),
+        meta: toPostMeta(post),
+      } satisfies BlogPostListItemDto;
+    })
+    .sort(comparePostsByDate);
+
+  return posts;
 });
 
 export const getPostPage = createServerFn({ method: "GET" })
   .inputValidator((input: { slug: string }) => input)
   .handler(async ({ data }) => {
-    const page = blogSource.getPage([data.slug]);
+    const post = getPost(data.slug);
 
-    if (!page) {
+    if (!post) {
       return null;
     }
 
+    const slug = toSlug(post._meta.path);
+
     return {
-      slug: page.slugs.join("/"),
-      path: page.path,
-      url: page.url,
-      meta: normalizePostMeta(page.data),
+      slug,
+      path: post._meta.path,
+      url: toPostUrl(slug),
+      meta: toPostMeta(post),
+      mdx: post.mdx,
     } satisfies BlogPostPageDto;
   });

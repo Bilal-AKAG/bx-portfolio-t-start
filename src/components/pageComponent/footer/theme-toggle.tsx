@@ -2,7 +2,7 @@
 import { useTheme } from "better-themes";
 import { Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
-
+import { useHotkey } from '@tanstack/react-hotkeys'
 import { cn } from "@/lib/utils";
 
 export const ButtonToggle = () => {
@@ -12,7 +12,12 @@ export const ButtonToggle = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
+  // keyboard shortcut for theme toggle
+  useHotkey("Mod+T", ()=>{
+		setTheme(theme === "light" ? "dark" : "light"), {
+			conflictBehavior: 'replace',
+		}
+  })
   if (!mounted) {
     return (
       <div className="flex items-center justify-between border border-border-tertiary border-dashed ">

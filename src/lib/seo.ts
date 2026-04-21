@@ -1,13 +1,13 @@
-export const SITE_URL = "https://bilal.works";
+const SITE_URL = "https://bilal.works";
 export const SITE_NAME = "Bilal Ali";
-export const SITE_TITLE = "Software Engineer";
+const SITE_TITLE = "Software Engineer";
 export const SITE_DESCRIPTION =
   "doing clean UI, thoughtful UX, and practical engineering.";
-export const DEFAULT_OG_IMAGE_PATH = "/og-image.png";
-export const DEFAULT_OG_IMAGE_WIDTH = 1200;
-export const DEFAULT_OG_IMAGE_HEIGHT = 630;
-export const DEFAULT_LOCALE = "en_US";
-export const TWITTER_HANDLE = "@bil0lali";
+const DEFAULT_OG_IMAGE_PATH = "/og-image.png";
+const DEFAULT_OG_IMAGE_WIDTH = 1200;
+const DEFAULT_OG_IMAGE_HEIGHT = 630;
+const DEFAULT_LOCALE = "en_US";
+const TWITTER_HANDLE = "@bil0lali";
 
 type MetaTag = {
   content?: string;
@@ -35,7 +35,7 @@ type JsonLdValue =
   | JsonLdValue[]
   | { [key: string]: JsonLdValue };
 
-export interface BuildSeoInput {
+interface BuildSeoInput {
   canonicalPath: string;
   description?: string;
   imageAlt?: string;
@@ -49,7 +49,7 @@ export interface BuildSeoInput {
   type?: "article" | "profile" | "website";
 }
 
-export interface ArticleSeoInput extends BuildSeoInput {
+interface ArticleSeoInput extends BuildSeoInput {
   author?: string;
   modifiedTime?: string;
   publishedTime?: string;
@@ -77,13 +77,13 @@ export function getCanonicalPath(pathname: string): string {
   return removeTrailingSlash(ensureLeadingSlash(pathname));
 }
 
-export function getCanonicalUrl(pathname: string): string {
+function getCanonicalUrl(pathname: string): string {
   const canonicalPath = getCanonicalPath(pathname);
 
   return canonicalPath === "/" ? SITE_URL : `${SITE_URL}${canonicalPath}`;
 }
 
-export function getSocialImageUrl(imagePath = DEFAULT_OG_IMAGE_PATH): string {
+function getSocialImageUrl(imagePath = DEFAULT_OG_IMAGE_PATH): string {
   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
     return imagePath;
   }
@@ -313,7 +313,7 @@ export function createProfilePageJsonLd(): JsonLdValue {
   };
 }
 
-export interface ArticleJsonLdInput {
+interface ArticleJsonLdInput {
   authorName?: string;
   canonicalPath: string;
   dateModified?: string;

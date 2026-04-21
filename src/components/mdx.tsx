@@ -1,4 +1,3 @@
-import defaultMdxComponents from "fumadocs-ui/mdx";
 import { ArrowRight } from "lucide-react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
@@ -43,7 +42,6 @@ function FinalLink({
 
 export function getMDXComponents() {
   return {
-    ...defaultMdxComponents,
     a: ({ className, rel, target, ...props }: AnchorProps) => {
       const resolvedRel =
         target === "_blank"
@@ -149,5 +147,3 @@ export function getMDXComponents() {
     FinalLink,
   };
 }
-
-export { FinalLink };

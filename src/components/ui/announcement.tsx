@@ -23,7 +23,7 @@ const useBadgeContext = () => {
   return context;
 };
 
-export type AnnouncementProps = BadgeProps & {
+type AnnouncementProps = BadgeProps & {
   themed?: boolean;
 };
 
@@ -47,7 +47,7 @@ export const Announcement = ({
   </BadgeContext.Provider>
 );
 
-export type AnnouncementTagProps = HTMLAttributes<HTMLDivElement>;
+type AnnouncementTagProps = HTMLAttributes<HTMLDivElement>;
 
 export const AnnouncementTag = ({
   className,
@@ -67,7 +67,7 @@ export const AnnouncementTag = ({
   );
 };
 
-export type AnnouncementTitleProps = HTMLAttributes<HTMLDivElement>;
+type AnnouncementTitleProps = HTMLAttributes<HTMLDivElement>;
 
 export const AnnouncementTitle = ({
   className,

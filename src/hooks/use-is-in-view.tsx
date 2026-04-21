@@ -23,4 +23,4 @@ function useIsInView<T extends HTMLElement = HTMLElement>(
   return { isInView, ref: localRef };
 }
 
-export { useIsInView, type UseIsInViewOptions };
+export { useIsInView,  };
