@@ -4,6 +4,7 @@ import { Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useHotkey } from '@tanstack/react-hotkeys'
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "#/components/ui/tooltip";
 
 export const ButtonToggle = () => {
   const { theme, setTheme, systemTheme } = useTheme();
@@ -13,7 +14,7 @@ export const ButtonToggle = () => {
     setMounted(true);
   }, []);
   // keyboard shortcut for theme toggle
-  useHotkey("Mod+T", ()=>{
+  useHotkey("T", ()=>{
 		setTheme(theme === "light" ? "dark" : "light"), {
 			conflictBehavior: 'replace',
 		}
@@ -35,7 +36,11 @@ export const ButtonToggle = () => {
   const isLight = resolvedTheme === "light";
   const isDark = resolvedTheme === "dark";
 
-  return (
+	return (
+		<Tooltip>
+			<TooltipTrigger>
+
+
     <div className="flex items-center justify-between border border-border-tertiary border-dashed  ">
       <button
         className={cn(
@@ -61,6 +66,11 @@ export const ButtonToggle = () => {
         <Moon size={14} />
         <span className="sr-only">Switch to dark theme</span>
       </button>
-    </div>
+				</div>
+			</TooltipTrigger>
+			<TooltipContent>
+				<span>Press <kbd>T</kbd> to toggle theme</span>
+      </TooltipContent>
+		</Tooltip>
   );
 };
