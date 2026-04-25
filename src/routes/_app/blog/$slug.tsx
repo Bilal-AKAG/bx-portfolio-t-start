@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
+import { formatDate } from "#/lib/utils";
 import { getMDXComponents } from "@/components/mdx";
 import { getPostPage } from "@/lib/posts";
 import {
@@ -85,6 +86,9 @@ function BlogPostPage() {
         <h1 className="mb-3 text-3xl tracking-tight text-foreground sm:text-4xl">
           {page.meta.title}
         </h1>
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span className="font-mono">{formatDate(page.meta.date)}</span>
+        </div>
       </div>
 
       <div className="w-full max-w-none pb-10 font-mono antialiased">

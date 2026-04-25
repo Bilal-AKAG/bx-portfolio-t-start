@@ -47,12 +47,12 @@ function BlogPage() {
     <div className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col overflow-hidden border-x border-dashed border-border-primary bg-background px-4 py-8 font-mono md:px-6">
       <div className="mb-12 flex flex-col gap-4">
         <div className="flex items-baseline gap-4">
-          <h1 className="px-5 text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="px-2 text-2xl font-bold tracking-tight text-foreground">
             Articles
           </h1>
         </div>
 
-        <div className="cursor-pointer border-l border-dashed border-border-primary bg-secondary/10 px-5 py-1 text-sm text-muted-foreground transition-colors duration-200">
+        <div className="cursor-pointer border-l border-dashed border-border-primary bg-secondary/10 px-2 py-1 text-sm text-muted-foreground transition-colors duration-200">
           <p className="text-pretty">
             <span className="text-foreground underline">Disclaimer</span>: I
             write about the tech I build and my experiences in development. I am
@@ -84,7 +84,7 @@ function BlogPage() {
               key={post.slug}
               to="/blog/$slug"
               params={{ slug: post.slug }}
-              className="group relative block border-l border-dashed border-border-primary p-5 transition-colors duration-200 hover:bg-zinc-50 hover:dark:bg-zinc-950/10"
+              className="group relative block border-l border-dashed border-border-primary p-2 transition-colors duration-200 hover:bg-zinc-50 hover:dark:bg-zinc-950/10"
             >
               {isNew ? (
                 <p className="absolute top-5 right-5 flex items-center justify-center gap-1 bg-primary px-2 py-0.5 font-mono text-xs font-medium text-primary-foreground">
@@ -93,13 +93,11 @@ function BlogPage() {
               ) : null}
 
               <div className="flex flex-col gap-2 sm:gap-1">
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>{formatDate(post.meta.date)}</span>
-                </div>
+               
 
-                <h2 className="text-xl font-medium text-foreground transition-colors">
+                <h3 className="text-l font-medium text-foreground transition-colors">
                   {post.meta.title}
-                </h2>
+                </h3>
 
                 <p className="line-clamp-2 text-sm text-muted-foreground">
                   {post.meta.description}
