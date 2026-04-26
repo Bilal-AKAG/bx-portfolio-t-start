@@ -12,6 +12,7 @@ import {
 import { useSound } from "@/hooks/use-sound";
 import { switchOffSound } from "@/lib/switch-off";
 import { cn } from "@/lib/utils";
+import { Kbd } from "#/components/ui/kbd";
 
 export const ButtonToggle = () => {
   const { theme, setTheme, systemTheme } = useTheme();
@@ -81,7 +82,7 @@ export const ButtonToggle = () => {
       </TooltipTrigger>
       <TooltipContent>
         <span>
-          Press <kbd>T</kbd> to toggle theme
+          Press <Kbd>T</Kbd> to toggle theme
         </span>
       </TooltipContent>
     </Tooltip>
