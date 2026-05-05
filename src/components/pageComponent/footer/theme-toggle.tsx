@@ -80,7 +80,7 @@ export const ButtonToggle = () => {
           </button>
         </div>
       </TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent className="hidden sm:block">
         <span>
           Press <Kbd>T</Kbd> to toggle theme
         </span>

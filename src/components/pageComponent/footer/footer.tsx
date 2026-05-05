@@ -1,7 +1,7 @@
 "use client";
 
 import JSZip from "jszip";
-import { Check, Copy, Loader2, MousePointerClick, X } from "lucide-react";
+import { Check, Copy, Loader2,X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { IconButton, IconClipboard, IconDocFolder, IconImage, IconImageDepth } from "nucleo-glass";
 import { sileo } from "sileo";
@@ -30,13 +30,22 @@ const Footer = () => {
   const closeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
+    const handleScroll = (): void => {
+      if (menuVisible) {
+        setMenuVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
       if (closeTimeoutRef.current !== null) {
         window.clearTimeout(closeTimeoutRef.current);
         closeTimeoutRef.current = null;
       }
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [menuVisible]);
 
   const clearCloseTimeout = (): void => {
     if (closeTimeoutRef.current !== null) {
