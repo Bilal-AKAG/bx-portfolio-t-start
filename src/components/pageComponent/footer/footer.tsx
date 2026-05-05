@@ -32,7 +32,7 @@ const Footer = () => {
   useEffect(() => {
     const handleScroll = (): void => {
       if (menuVisible) {
-        setMenuVisible(false);
+        scheduleMenuClose();
       }
     };
 
