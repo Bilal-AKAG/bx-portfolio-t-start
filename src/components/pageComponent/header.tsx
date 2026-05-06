@@ -87,7 +87,8 @@ const Navigations = () => {
                 <TooltipTrigger asChild>
                   <Link
                     className="group relative flex h-8 w-8 flex-col items-center justify-center outline-none transition-all duration-300"
-                    to={item.href}
+										to={item.href}
+										preload="render"
                   >
                     {/* Active State Corners */}
                     {active ? (

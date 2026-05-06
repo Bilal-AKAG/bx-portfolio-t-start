@@ -6,7 +6,6 @@ import {
   createWebsiteJsonLd,
   SITE_NAME,
 } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
 
 export const Route = createFileRoute("/_app/blog/")({
   loader: () => getPosts(),
@@ -84,7 +83,8 @@ function BlogPage() {
               key={post.slug}
               to="/blog/$slug"
               params={{ slug: post.slug }}
-              className="group relative block border-l border-dashed border-border-primary p-2 transition-colors duration-200 hover:bg-zinc-50 hover:dark:bg-zinc-950/10"
+							className="group relative block border-l border-dashed border-border-primary p-2 transition-colors duration-200 hover:bg-zinc-50 hover:dark:bg-zinc-950/10"
+							preload="intent"
             >
               {isNew ? (
                 <p className="absolute top-5 right-5 flex items-center justify-center gap-1 bg-primary px-2 py-0.5 font-mono text-xs font-medium text-primary-foreground">
@@ -93,7 +93,7 @@ function BlogPage() {
               ) : null}
 
               <div className="flex flex-col gap-2 sm:gap-1">
-               
+
 
                 <h3 className="text-l font-medium text-foreground transition-colors">
                   {post.meta.title}
