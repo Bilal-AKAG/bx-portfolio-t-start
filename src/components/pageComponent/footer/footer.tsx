@@ -321,13 +321,14 @@ const Footer = () => {
                   </div>
                 </DropdownMenuTrigger>
               </TooltipTrigger>
-
+            {!menuVisible && (
               <TooltipContent>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <span className="text-white">Right-click</span>
                   <IconButton className="h-4 w-4" />
                 </div>
-              </TooltipContent>
+								</TooltipContent>
+            )}
             </Tooltip>
 
             <DropdownMenuContent
