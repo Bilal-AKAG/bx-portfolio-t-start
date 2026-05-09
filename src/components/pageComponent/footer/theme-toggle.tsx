@@ -56,8 +56,8 @@ export const ButtonToggle = () => {
                 : "opacity-40 hover:opacity-70"
             )}
             onClick={() => {
-              setTheme("light");
-              play();
+							setTheme("light");
+							theme === "dark" ? play() : null;
             }}
           >
             <Sun size={14} />
