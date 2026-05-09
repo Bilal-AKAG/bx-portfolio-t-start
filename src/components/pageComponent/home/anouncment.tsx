@@ -1,31 +1,20 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowUpRightIcon } from "lucide-react";
-import { AnimatePresence } from "motion/react";
-import { useRef } from "react";
-
 import {
   Announcement,
   AnnouncementTag,
   AnnouncementTitle,
 } from "@/components/ui/announcement";
 import { PartyPopper } from "@/components/ui/icons/party-popper";
-import { ThanosSnapEffect } from "@/components/ui/thanos-snap-effect";
+
 const AnouncmentSection = () => {
   const navigate = useNavigate();
-  const thanosRef = useRef<{ handleClick: () => Promise<void> }>(null);
-
   const handleAnnouncementClick = async () => {
-    if (thanosRef.current) {
-      // Start navigation immediately when snap animation begins
       navigate({ to: "/blog" });
-      // Trigger the snap effect
-      await thanosRef.current.handleClick();
-    }
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <ThanosSnapEffect ref={thanosRef}>
+
         <div className="mb-3 flex justify-center">
           <Announcement
             className="cursor-pointer border border-border-tertiary border-dashed rounded-none group bg-background font-mono text-foreground shadow-white/5 shadow-xl transition-all duration-200 hover:shadow-none"
@@ -47,8 +36,6 @@ const AnouncmentSection = () => {
             </AnnouncementTitle>
           </Announcement>
         </div>
-      </ThanosSnapEffect>
-    </AnimatePresence>
   );
 };
 
