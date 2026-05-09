@@ -1,9 +1,7 @@
-"use client";
 import { useHotkey } from "@tanstack/react-hotkeys";
 import { useTheme } from "better-themes";
 import { Moon, Sun } from "lucide-react";
-import { useState, useEffect } from "react";
-
+import { useHydrated } from "@tanstack/react-router";
 import {
   Tooltip,
   TooltipContent,
@@ -15,19 +13,17 @@ import { cn } from "@/lib/utils";
 import { Kbd } from "#/components/ui/kbd";
 
 export const ButtonToggle = () => {
-  const { theme, setTheme, systemTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const hydrated = useHydrated();
   const [play] = useSound(switchOffSound);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  // keyboard shortcut for theme toggle
+
   useHotkey("T", () => {
     setTheme(theme === "light" ? "dark" : "light");
     play();
-  });
-  if (!mounted) {
+	});
+  
+  if (!hydrated) {
     return (
       <div className="flex items-center justify-between border border-border-tertiary border-dashed ">
         <button className="cursor-pointer flex justify-center items-center transition-all p-1 opacity-40">
@@ -40,9 +36,8 @@ export const ButtonToggle = () => {
     );
   }
 
-  const resolvedTheme = theme === "system" ? systemTheme : theme;
-  const isLight = resolvedTheme === "light";
-  const isDark = resolvedTheme === "dark";
+  const isLight = theme === "light";
+  const isDark = theme === "dark";
 
   return (
     <Tooltip>
@@ -72,7 +67,7 @@ export const ButtonToggle = () => {
             )}
             onClick={() => {
               setTheme("dark");
-              play();
+              theme === "light" ? play() : null;
             }}
           >
             <Moon size={14} />
