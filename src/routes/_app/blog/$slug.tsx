@@ -72,7 +72,8 @@ function BlogPostPage() {
   return (
     <article className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col border-x border-dashed border-border-primary bg-background px-6 py-6">
       <Link
-        to="/blog"
+				to="/blog"
+				preload="render"
         className="group mb-8 mt-2 flex w-fit items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft

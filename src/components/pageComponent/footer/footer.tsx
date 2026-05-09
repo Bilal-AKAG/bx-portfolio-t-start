@@ -1,7 +1,7 @@
 "use client";
 
 import JSZip from "jszip";
-import { Check, Copy, Loader2,X } from "lucide-react";
+import { Check, Copy, Loader2, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { IconButton, IconClipboard, IconDocFolder, IconImage, IconImageDepth } from "nucleo-glass";
 import { sileo } from "sileo";
@@ -21,60 +21,40 @@ import {
 
 import { ButtonToggle } from "./theme-toggle";
 
-const MENU_CLOSE_DELAY_MS = 200;
-
 const Footer = () => {
   const [menuVisible, setMenuVisible] = useState(false);
+  const menuVisibleRef = useRef(menuVisible);
 
   const svgRef = useRef<SVGSVGElement>(null);
-  const closeTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    menuVisibleRef.current = menuVisible;
+  }, [menuVisible]);
 
   useEffect(() => {
     const handleScroll = (): void => {
-      if (menuVisible) {
-        scheduleMenuClose();
+      if (menuVisibleRef.current) {
+        setMenuVisible(false);
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      if (closeTimeoutRef.current !== null) {
-        window.clearTimeout(closeTimeoutRef.current);
-        closeTimeoutRef.current = null;
-      }
-      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("scroll", handleScroll);
     };
-  }, [menuVisible]);
-
-  const clearCloseTimeout = (): void => {
-    if (closeTimeoutRef.current !== null) {
-      window.clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  };
-
-  const scheduleMenuClose = (): void => {
-    clearCloseTimeout();
-    closeTimeoutRef.current = window.setTimeout(() => {
-      setMenuVisible(false);
-      closeTimeoutRef.current = null;
-    }, MENU_CLOSE_DELAY_MS);
-  };
+  }, []);
 
   const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>): void => {
     event.preventDefault();
-    clearCloseTimeout();
     setMenuVisible(true);
   };
 
   const handleOpenChange = (open: boolean): void => {
-    clearCloseTimeout();
     setMenuVisible(open);
   };
 
   const closeMenu = (): void => {
-    clearCloseTimeout();
     setMenuVisible(false);
   };
 
@@ -296,7 +276,7 @@ const Footer = () => {
     <footer className="relative w-full border-t border-dashed bg-background px-6 pt-4 pb-0">
       <div className="flex flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <DropdownMenu modal={false} open={menuVisible} onOpenChange={handleOpenChange}>
+          <DropdownMenu open={menuVisible} onOpenChange={handleOpenChange} modal={false}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <DropdownMenuTrigger asChild>
@@ -355,9 +335,7 @@ const Footer = () => {
               align="start"
               sideOffset={2}
               alignOffset={24}
-              onMouseEnter={clearCloseTimeout}
-              onMouseLeave={scheduleMenuClose}
-              className="z-100 min-w-50 rounded-none border border-dashed bg-background/95 p-1.5 font-mono text-foreground data-[side=top]:slide-in-from-bottom-1 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[0.6] data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[0.6] dark:bg-bg-panel"
+              className="z-100 min-w-50 rounded-none border border-dashed bg-background/95 p-1.5 font-mono text-foreground data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[0.6] data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[0.6] dark:bg-bg-panel"
               style={{ transformOrigin: "bottom left" }}
             >
               <DropdownMenuItem
