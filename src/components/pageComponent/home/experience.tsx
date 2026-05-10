@@ -107,9 +107,9 @@ const Experience = () => {
           </div>
           {section.category === "Education" ? (
             <div className="mb-2 last:mb-0 relative">
-              {section.items.map((item, idx) => (
+              {section.items.map((item) => (
                 <div
-                  key={idx}
+                  key={item.role}
                   className="border border-transparent transition-colors hover:bg-muted/30 dark:hover:bg-zinc-900/50"
                 >
                   <ExperienceTrigger item={item} />
@@ -155,8 +155,8 @@ const Experience = () => {
                     <AccordionContent className="px-2 pb-4 pt-0">
                       <div className="ml-11 mt-2">
                         <ul className="mb-4 list-[square] space-y-2 pl-4 sm:text-ellipsis text-sm text-muted-foreground">
-                          {item.description.map((desc, i) => (
-                            <li key={i}>{desc}</li>
+                          {item.description.map((desc) => (
+                            <li key={desc}>{desc}</li>
                           ))}
                         </ul>
                         <div className="flex flex-wrap gap-2">

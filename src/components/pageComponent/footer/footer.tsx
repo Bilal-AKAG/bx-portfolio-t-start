@@ -21,14 +21,158 @@ import {
 
 import { ButtonToggle } from "./theme-toggle";
 
+const downloadFile = (dataUrl: string, filename: string): void => {
+  const link = document.createElement("a");
+  link.href = dataUrl;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+const getExportableSVG = (svgRef: React.RefObject<SVGSVGElement | null>): SVGSVGElement | null => {
+  if (!svgRef.current) {
+    return null;
+  }
+
+  const clonedSvg = svgRef.current.cloneNode(true) as SVGSVGElement;
+  clonedSvg.setAttribute("width", "500");
+  clonedSvg.setAttribute("height", "500");
+
+  const rects = clonedSvg.querySelectorAll("rect");
+
+  if (rects[0]) {
+    rects[0].setAttribute("rx", "90");
+    rects[0].setAttribute("ry", "90");
+  }
+
+  if (rects[1]) {
+    rects[1].setAttribute("rx", "22.5");
+    rects[1].setAttribute("ry", "22.5");
+  }
+
+  if (rects[2]) {
+    rects[2].setAttribute("rx", "11.25");
+    rects[2].setAttribute("ry", "11.25");
+  }
+
+  if (rects[3]) {
+    rects[3].setAttribute("rx", "11.25");
+    rects[3].setAttribute("ry", "11.25");
+  }
+
+  return clonedSvg;
+};
+
+interface FooterLogoProps {
+  svgRef: React.RefObject<SVGSVGElement | null>;
+}
+
+const FooterLogo = ({ svgRef }: FooterLogoProps) => (
+  <svg
+    ref={svgRef}
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 500 500"
+    className="block origin-center transition-transform duration-700 ease-out hover:rotate-180 hover:scale-105 active:scale-95"
+  >
+    <rect x="25" y="25" width="450" height="450" fill="#000000" />
+    <rect
+      x="103.75"
+      y="81.25"
+      width="292.5"
+      height="337.5"
+      fill="#ffffff"
+    />
+    <rect
+      x="137.5"
+      y="115"
+      width="225"
+      height="123.75"
+      fill="#000000"
+    />
+    <rect
+      x="137.5"
+      y="261.25"
+      width="225"
+      height="123.75"
+      fill="#000000"
+    />
+  </svg>
+);
+
+interface ExportMenuItemsProps {
+  handleCopySVG: () => void;
+  handleDownloadPNG: () => void;
+  handleDownloadSVG: () => void;
+  handleDownloadAssets: () => void;
+  closeMenu: () => void;
+}
+
+const ExportMenuItems = ({
+  handleCopySVG,
+  handleDownloadPNG,
+  handleDownloadSVG,
+  handleDownloadAssets,
+  closeMenu,
+}: ExportMenuItemsProps) => (
+  <DropdownMenuContent
+    side="top"
+    align="start"
+    sideOffset={2}
+    alignOffset={24}
+    className="z-100 min-w-50 rounded-none border border-dashed bg-background/95 p-1.5 font-mono text-foreground data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[0.6] data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[0.6] dark:bg-bg-panel"
+    style={{ transformOrigin: "bottom left" }}
+  >
+    <DropdownMenuItem
+      onSelect={handleCopySVG}
+      className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
+    >
+      <IconClipboard className="size-4" />
+      <span>Copy Logo as SVG</span>
+    </DropdownMenuItem>
+
+    <DropdownMenuSeparator className="my-1.5 h-px bg-border-primary/50" />
+
+    <DropdownMenuItem
+      onSelect={() => {
+        handleDownloadPNG();
+        closeMenu();
+      }}
+      className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
+    >
+      <IconImage className="size-4" />
+      <span>Download Logo PNG</span>
+    </DropdownMenuItem>
+
+    <DropdownMenuItem
+      onSelect={() => {
+        handleDownloadSVG();
+        closeMenu();
+      }}
+      className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
+    >
+      <IconImageDepth className="size-4" />
+      <span>Download Logo SVG</span>
+    </DropdownMenuItem>
+
+    <DropdownMenuSeparator className="my-1.5 h-px bg-border-primary/50" />
+
+    <DropdownMenuItem
+      onSelect={handleDownloadAssets}
+      className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
+    >
+      <IconDocFolder className="size-4" />
+      <span>Brand Assets (All)</span>
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+);
+
 const Footer = () => {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuVisibleRef = useRef(menuVisible);
-  const [year, setYear] = useState(() => new Date().getFullYear());
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  const [year] = useState(() => new Date().getFullYear());
 
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -63,51 +207,8 @@ const Footer = () => {
     setMenuVisible(false);
   };
 
-  const downloadFile = (dataUrl: string, filename: string): void => {
-    const link = document.createElement("a");
-    link.href = dataUrl;
-    link.download = filename;
-    document.body.append(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const getExportableSVG = (): SVGSVGElement | null => {
-    if (!svgRef.current) {
-      return null;
-    }
-
-    const clonedSvg = svgRef.current.cloneNode(true) as SVGSVGElement;
-    clonedSvg.setAttribute("width", "500");
-    clonedSvg.setAttribute("height", "500");
-
-    const rects = clonedSvg.querySelectorAll("rect");
-
-    if (rects[0]) {
-      rects[0].setAttribute("rx", "90");
-      rects[0].setAttribute("ry", "90");
-    }
-
-    if (rects[1]) {
-      rects[1].setAttribute("rx", "22.5");
-      rects[1].setAttribute("ry", "22.5");
-    }
-
-    if (rects[2]) {
-      rects[2].setAttribute("rx", "11.25");
-      rects[2].setAttribute("ry", "11.25");
-    }
-
-    if (rects[3]) {
-      rects[3].setAttribute("rx", "11.25");
-      rects[3].setAttribute("ry", "11.25");
-    }
-
-    return clonedSvg;
-  };
-
   const handleCopySVG = (): void => {
-    const svg = getExportableSVG();
+    const svg = getExportableSVG(svgRef);
     if (!svg) {
       return;
     }
@@ -125,7 +226,7 @@ const Footer = () => {
   };
 
   const handleDownloadSVG = (): void => {
-    const svg = getExportableSVG();
+    const svg = getExportableSVG(svgRef);
     if (!svg) {
       return;
     }
@@ -141,7 +242,7 @@ const Footer = () => {
   };
 
   const handleDownloadPNG = (): void => {
-    const svg = getExportableSVG();
+    const svg = getExportableSVG(svgRef);
     if (!svg) {
       return;
     }
@@ -183,14 +284,14 @@ const Footer = () => {
       const zip = new JSZip();
       const folder = zip.folder("bilal-brand-assets");
 
-      const svg = getExportableSVG();
+      const svg = getExportableSVG(svgRef);
       if (svg) {
         const svgData = new XMLSerializer().serializeToString(svg);
         folder?.file("logo.svg", svgData);
       }
 
       const pngBlob = await new Promise<Blob | null>((resolve) => {
-        const exportableSvg = getExportableSVG();
+        const exportableSvg = getExportableSVG(svgRef);
         if (!exportableSvg) {
           resolve(null);
           return;
@@ -299,37 +400,7 @@ const Footer = () => {
                     role="button"
                     tabIndex={0}
                   >
-                    <svg
-                      ref={svgRef}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 500 500"
-                      className="block origin-center transition-transform duration-700 ease-out hover:rotate-180 hover:scale-105 active:scale-95"
-                    >
-                      <rect x="25" y="25" width="450" height="450" fill="#000000" />
-                      <rect
-                        x="103.75"
-                        y="81.25"
-                        width="292.5"
-                        height="337.5"
-                        fill="#ffffff"
-                      />
-                      <rect
-                        x="137.5"
-                        y="115"
-                        width="225"
-                        height="123.75"
-                        fill="#000000"
-                      />
-                      <rect
-                        x="137.5"
-                        y="261.25"
-                        width="225"
-                        height="123.75"
-                        fill="#000000"
-                      />
-                    </svg>
+                    <FooterLogo svgRef={svgRef} />
                   </div>
                 </DropdownMenuTrigger>
               </TooltipTrigger>
@@ -343,56 +414,13 @@ const Footer = () => {
             )}
             </Tooltip>
 
-            <DropdownMenuContent
-              side="top"
-              align="start"
-              sideOffset={2}
-              alignOffset={24}
-              className="z-100 min-w-50 rounded-none border border-dashed bg-background/95 p-1.5 font-mono text-foreground data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[0.6] data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[0.6] dark:bg-bg-panel"
-              style={{ transformOrigin: "bottom left" }}
-            >
-              <DropdownMenuItem
-                onSelect={handleCopySVG}
-                className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
-              >
-                <IconClipboard className="size-4" />
-                <span>Copy Logo as SVG</span>
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator className="my-1.5 h-px bg-border-primary/50" />
-
-              <DropdownMenuItem
-                onSelect={() => {
-                  handleDownloadPNG();
-                  closeMenu();
-                }}
-                className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
-              >
-                <IconImage className="size-4" />
-                <span>Download Logo PNG</span>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem
-                onSelect={() => {
-                  handleDownloadSVG();
-                  closeMenu();
-                }}
-                className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
-              >
-                <IconImageDepth className="size-4" />
-                <span>Download Logo SVG</span>
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator className="my-1.5 h-px bg-border-primary/50" />
-
-              <DropdownMenuItem
-                onSelect={handleDownloadAssets}
-                className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
-              >
-                <IconDocFolder className="size-4" />
-                <span>Brand Assets (All)</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
+            <ExportMenuItems
+              handleCopySVG={handleCopySVG}
+              handleDownloadPNG={handleDownloadPNG}
+              handleDownloadSVG={handleDownloadSVG}
+              handleDownloadAssets={handleDownloadAssets}
+              closeMenu={closeMenu}
+            />
           </DropdownMenu>
 
           <div className="flex flex-col">

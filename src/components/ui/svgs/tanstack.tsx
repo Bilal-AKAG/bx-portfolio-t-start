@@ -1,93 +1,97 @@
 import type { SVGProps } from "react";
 
+const TanstackDefs = () => (
+  <defs>
+    <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="71.65%">
+      <stop offset="0%" stopColor="#6BDAFF" />
+      <stop offset="31.922%" stopColor="#F9FFB5" />
+      <stop offset="70.627%" stopColor="#FFA770" />
+      <stop offset="100%" stopColor="#FF7373" />
+    </linearGradient>
+    <linearGradient id="d" x1="43.996%" x2="53.441%" y1="8.54%" y2="93.872%">
+      <stop offset="0%" stopColor="#673800" />
+      <stop offset="100%" stopColor="#B65E00" />
+    </linearGradient>
+    <linearGradient id="e" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#2F8A00" />
+      <stop offset="100%" stopColor="#90FF57" />
+    </linearGradient>
+    <linearGradient id="f" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#2F8A00" />
+      <stop offset="100%" stopColor="#90FF57" />
+    </linearGradient>
+    <linearGradient id="g" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#2F8A00" />
+      <stop offset="100%" stopColor="#90FF57" />
+    </linearGradient>
+    <linearGradient id="h" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#2F8A00" />
+      <stop offset="100%" stopColor="#90FF57" />
+    </linearGradient>
+    <linearGradient id="i" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#2F8A00" />
+      <stop offset="100%" stopColor="#90FF57" />
+    </linearGradient>
+    <linearGradient id="j" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#2F8A00" />
+      <stop offset="100%" stopColor="#90FF57" />
+    </linearGradient>
+    <linearGradient id="k" x1="92.9%" x2="8.641%" y1="45.768%" y2="54.892%">
+      <stop offset="0%" stopColor="#EE2700" />
+      <stop offset="100%" stopColor="#FF008E" />
+    </linearGradient>
+    <linearGradient id="l" x1="61.109%" x2="43.717%" y1="3.633%" y2="43.072%">
+      <stop offset="0%" stopColor="#FFF400" />
+      <stop offset="100%" stopColor="#3C8700" />
+    </linearGradient>
+    <linearGradient id="m" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#FFDF00" />
+      <stop offset="100%" stopColor="#FF9D00" />
+    </linearGradient>
+    <linearGradient id="n" x1="127.279%" x2="0%" y1="49.778%" y2="50.222%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="o" x1="127.279%" x2="0%" y1="47.531%" y2="52.469%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="p" x1="127.279%" x2="0%" y1="46.195%" y2="53.805%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="q" x1="127.279%" x2="0%" y1="35.33%" y2="64.67%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="r" x1="127.279%" x2="0%" y1="4.875%" y2="95.125%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="s" x1="78.334%" x2="31.668%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="t" x1="57.913%" x2="44.88%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <linearGradient id="u" x1="50.495%" x2="49.68%" y1="0%" y2="100%">
+      <stop offset="0%" stopColor="#FFA400" />
+      <stop offset="100%" stopColor="#FF5E00" />
+    </linearGradient>
+    <circle id="a" cx="308.5" cy="308.5" r="308.5" />
+    <circle id="v" cx="307.5" cy="308.5" r="316.5" />
+  </defs>
+);
+
 const Tanstack = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     xmlnsXlink="http://www.w3.org/1999/xlink"
     viewBox="0 0 633 633"
   >
-    <defs>
-      <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="71.65%">
-        <stop offset="0%" stopColor="#6BDAFF" />
-        <stop offset="31.922%" stopColor="#F9FFB5" />
-        <stop offset="70.627%" stopColor="#FFA770" />
-        <stop offset="100%" stopColor="#FF7373" />
-      </linearGradient>
-      <linearGradient id="d" x1="43.996%" x2="53.441%" y1="8.54%" y2="93.872%">
-        <stop offset="0%" stopColor="#673800" />
-        <stop offset="100%" stopColor="#B65E00" />
-      </linearGradient>
-      <linearGradient id="e" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#2F8A00" />
-        <stop offset="100%" stopColor="#90FF57" />
-      </linearGradient>
-      <linearGradient id="f" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#2F8A00" />
-        <stop offset="100%" stopColor="#90FF57" />
-      </linearGradient>
-      <linearGradient id="g" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#2F8A00" />
-        <stop offset="100%" stopColor="#90FF57" />
-      </linearGradient>
-      <linearGradient id="h" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#2F8A00" />
-        <stop offset="100%" stopColor="#90FF57" />
-      </linearGradient>
-      <linearGradient id="i" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#2F8A00" />
-        <stop offset="100%" stopColor="#90FF57" />
-      </linearGradient>
-      <linearGradient id="j" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#2F8A00" />
-        <stop offset="100%" stopColor="#90FF57" />
-      </linearGradient>
-      <linearGradient id="k" x1="92.9%" x2="8.641%" y1="45.768%" y2="54.892%">
-        <stop offset="0%" stopColor="#EE2700" />
-        <stop offset="100%" stopColor="#FF008E" />
-      </linearGradient>
-      <linearGradient id="l" x1="61.109%" x2="43.717%" y1="3.633%" y2="43.072%">
-        <stop offset="0%" stopColor="#FFF400" />
-        <stop offset="100%" stopColor="#3C8700" />
-      </linearGradient>
-      <linearGradient id="m" x1="50%" x2="50%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#FFDF00" />
-        <stop offset="100%" stopColor="#FF9D00" />
-      </linearGradient>
-      <linearGradient id="n" x1="127.279%" x2="0%" y1="49.778%" y2="50.222%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="o" x1="127.279%" x2="0%" y1="47.531%" y2="52.469%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="p" x1="127.279%" x2="0%" y1="46.195%" y2="53.805%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="q" x1="127.279%" x2="0%" y1="35.33%" y2="64.67%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="r" x1="127.279%" x2="0%" y1="4.875%" y2="95.125%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="s" x1="78.334%" x2="31.668%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="t" x1="57.913%" x2="44.88%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <linearGradient id="u" x1="50.495%" x2="49.68%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="#FFA400" />
-        <stop offset="100%" stopColor="#FF5E00" />
-      </linearGradient>
-      <circle id="a" cx="308.5" cy="308.5" r="308.5" />
-      <circle id="v" cx="307.5" cy="308.5" r="316.5" />
-    </defs>
+    <TanstackDefs />
     <g fill="none" fillRule="evenodd" transform="translate(9 8)">
       <mask id="c" fill="#fff">
         <use xlinkHref="#a" />

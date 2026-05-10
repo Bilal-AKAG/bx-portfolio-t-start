@@ -262,14 +262,15 @@ function AnimateIcon({
     if (animate) {
       if (delay > 0) {
         localAnimateRef.current = false;
-        delayRef.current = setTimeout(() => {
+        const id = setTimeout(() => {
           localAnimateRef.current = true;
           runAnimation(true, next);
         }, delay);
-      } else {
-        localAnimateRef.current = true;
-        runAnimation(true, next);
+        delayRef.current = id;
+        return () => clearTimeout(id);
       }
+      localAnimateRef.current = true;
+      runAnimation(true, next);
     } else {
       localAnimateRef.current = false;
       runAnimation(false, next);
@@ -506,7 +507,7 @@ function getVariants<
     for (const key in animations.default) {
       if (
         (animationType === "path" || animationType === "path-loop") &&
-        key.includes("group")
+        /group/.test(key)
       ) {
         continue;
       }
