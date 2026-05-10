@@ -9,9 +9,6 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run",
-    "check": "ultracite check",
-    "fix": "ultracite fix",
     "prepare": "husky",
     "knip": "knip"
   },
