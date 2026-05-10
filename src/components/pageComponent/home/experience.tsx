@@ -72,7 +72,7 @@ const experiences = [
 
 type ExperienceItem = (typeof experiences)[0]["items"][0];
 
-const renderTrigger = (item: ExperienceItem) => (
+const ExperienceTrigger = ({ item }: { item: ExperienceItem }) => (
   <div className="px-2 py-3 rounded-none border border-dashed border-transparent hover:border-border-primary transition-colors duration-200 bg-muted/30 dark:bg-black/10 cursor-pointer">
     <div className="flex w-full items-center justify-between gap-4 text-left">
       <div className="flex items-center gap-3">
@@ -96,9 +96,9 @@ const Experience = () => {
       ?.items.map((_, itemIndex) => `Experiance-${itemIndex}`) ?? [];
 
   return (
-    <div className="flex w-full flex-col px-4 py-4">
+    <div className="flex w-full flex-col p-4">
       {experiences.map((section) => (
-        <div key={Math.random()} className="mb-6 last:mb-0">
+        <div key={section.category} className="mb-6 last:mb-0">
           <div className="mb-4 flex items-center gap-2 text-muted-foreground">
             <div className="size-2 bg-muted-foreground" />
             <span className="font-mono text-sm font-medium text-foreground">
@@ -109,10 +109,10 @@ const Experience = () => {
             <div className="mb-2 last:mb-0 relative">
               {section.items.map((item) => (
                 <div
-                  key={Math.random()}
+                  key={item.role}
                   className="border border-transparent transition-colors hover:bg-muted/30 dark:hover:bg-zinc-900/50"
                 >
-                  {renderTrigger(item)}
+                  <ExperienceTrigger item={item} />
                 </div>
               ))}
             </div>
@@ -124,7 +124,7 @@ const Experience = () => {
             >
               {section.items.map((item, itemIndex) => (
                 <AccordionItem
-                  key={Math.random()}
+                  key={`${section.category}-${itemIndex}`}
                   value={`${section.category}-${itemIndex}`}
                   className="border-b-0 mb-2 last:mb-0 relative"
                 >
@@ -156,13 +156,13 @@ const Experience = () => {
                       <div className="ml-11 mt-2">
                         <ul className="mb-4 list-[square] space-y-2 pl-4 sm:text-ellipsis text-sm text-muted-foreground">
                           {item.description.map((desc) => (
-                            <li key={Math.random()}>{desc}</li>
+                            <li key={desc}>{desc}</li>
                           ))}
                         </ul>
                         <div className="flex flex-wrap gap-2">
                           {item.stack.map((tech) => (
                             <Badge
-                              key={Math.random()}
+                              key={tech}
                               variant="secondary"
                               className="border rounded-none border-border-primary bg-muted dark:bg-zinc-900/50 px-2 py-0.5 font-mono text-[10px] font-normal text-muted-foreground dark:text-zinc-400 hover:bg-muted-foreground/20 dark:hover:text-zinc-200"
                             >

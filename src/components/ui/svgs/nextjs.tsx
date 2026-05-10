@@ -16,7 +16,7 @@ const Nextjs = (props: SVGProps<SVGSVGElement>) => (
     <g mask="url(#nextjs_icon_dark__:r8:mask0_408_134)">
       <circle cx="90" cy="90" data-circle="true" fill="black" r="90" />
       <path
-        d="M149.508 157.52L69.142 54H54V125.97H66.1136V69.3836L139.999 164.845C143.333 162.614 146.509 160.165 149.508 157.52Z"
+        d="M149.51 157.52L69.14 54H54v71.97h12.11V69.38l73.89 95.47c3.33-2.23 6.51-4.68 9.51-7.33Z"
         fill="url(#nextjs_icon_dark__:r8:paint0_linear_408_134)"
       />
       <rect

@@ -117,32 +117,38 @@ export function getMDXComponents() {
         className={cn("font-bold text-foreground", className)}
       />
     ),
-    h1: ({ className, ...props }: ComponentPropsWithoutRef<"h1">) => (
+    h1: ({ className, children, ...props }: ComponentPropsWithoutRef<"h1">) => (
       <h1
         {...props}
         className={cn(
           "mt-10 scroll-m-20 font-doto text-3xl font-extrabold tracking-tight text-foreground lg:text-4xl",
           className
         )}
-      />
+      >
+        {children}
+      </h1>
     ),
-    h2: ({ className, ...props }: ComponentPropsWithoutRef<"h2">) => (
+    h2: ({ className, children, ...props }: ComponentPropsWithoutRef<"h2">) => (
       <h2
         {...props}
         className={cn(
           "mt-10 scroll-m-20 border-b border-border pb-2  text-xl font-bold tracking-tight text-foreground first:mt-0",
           className
         )}
-      />
+      >
+        {children}
+      </h2>
     ),
-    h3: ({ className, ...props }: ComponentPropsWithoutRef<"h3">) => (
+    h3: ({ className, children, ...props }: ComponentPropsWithoutRef<"h3">) => (
       <h3
         {...props}
         className={cn(
           "mt-10 scroll-m-20 font-doto text-xl font-semibold tracking-tight text-foreground",
           className
         )}
-      />
+      >
+        {children}
+      </h3>
     ),
     FinalLink,
   };

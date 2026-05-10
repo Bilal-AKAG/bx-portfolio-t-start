@@ -88,7 +88,7 @@ const AnimateIconContext = React.createContext<AnimateIconContextValue | null>(
 );
 
 function useAnimateIconContext() {
-  const context = React.useContext(AnimateIconContext);
+  const context = React.use(AnimateIconContext);
   if (!context) {
     return {
       animation: "default",
@@ -197,18 +197,30 @@ function AnimateIcon({
 }: AnimateIconProps) {
   const controls = useAnimation();
 
-  const [localAnimate, setLocalAnimate] = React.useState<boolean>(() => {
-    if (animate === undefined || animate === false) {
-      return false;
-    }
-    return delay <= 0;
-  });
+  const localAnimateRef = React.useRef<boolean>(
+    animate === undefined || animate === false ? false : delay <= 0
+  );
 
   const [currentAnimation, setCurrentAnimation] = React.useState<
     string | StaticAnimations
   >(typeof animate === "string" ? animate : animation);
 
   const delayRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const runAnimation = React.useCallback(
+    (animState: boolean, animName: string | StaticAnimations) => {
+      if (animState) {
+        onAnimateStart?.();
+      }
+      controls.start(animState ? "animate" : "initial").then(() => {
+        if (animState) {
+          onAnimateEnd?.();
+        }
+      });
+      onAnimateChange?.(animState, animName);
+    },
+    [controls, onAnimateChange, onAnimateEnd, onAnimateStart]
+  );
 
   const startAnimation = React.useCallback(
     (trigger: TriggerProp) => {
@@ -219,15 +231,17 @@ function AnimateIcon({
       }
       setCurrentAnimation(next);
       if (delay > 0) {
-        setLocalAnimate(false);
+        localAnimateRef.current = false;
         delayRef.current = setTimeout(() => {
-          setLocalAnimate(true);
+          localAnimateRef.current = true;
+          runAnimation(true, next);
         }, delay);
       } else {
-        setLocalAnimate(true);
+        localAnimateRef.current = true;
+        runAnimation(true, next);
       }
     },
-    [animation, delay]
+    [animation, delay, runAnimation]
   );
 
   const stopAnimation = React.useCallback(() => {
@@ -235,37 +249,33 @@ function AnimateIcon({
       clearTimeout(delayRef.current);
       delayRef.current = null;
     }
-    setLocalAnimate(false);
-  }, []);
+    localAnimateRef.current = false;
+    runAnimation(false, currentAnimation);
+  }, [currentAnimation, runAnimation]);
 
   React.useEffect(() => {
     if (animate === undefined) {
       return;
     }
-    setCurrentAnimation(typeof animate === "string" ? animate : animation);
+    const next = typeof animate === "string" ? animate : animation;
+    setCurrentAnimation(next);
     if (animate) {
-      startAnimation(animate as TriggerProp);
-    } else {
-      stopAnimation();
-    }
-    //
-  }, [animate]);
-
-  React.useEffect(
-    () => onAnimateChange?.(localAnimate, currentAnimation),
-    [localAnimate, onAnimateChange, currentAnimation]
-  );
-
-  React.useEffect(() => {
-    if (localAnimate) {
-      onAnimateStart?.();
-    }
-    controls.start(localAnimate ? "animate" : "initial").then(() => {
-      if (localAnimate) {
-        onAnimateEnd?.();
+      if (delay > 0) {
+        localAnimateRef.current = false;
+        const id = setTimeout(() => {
+          localAnimateRef.current = true;
+          runAnimation(true, next);
+        }, delay);
+        delayRef.current = id;
+        return () => clearTimeout(id);
       }
-    });
-  }, [localAnimate, controls, onAnimateStart, onAnimateEnd]);
+      localAnimateRef.current = true;
+      runAnimation(true, next);
+    } else {
+      localAnimateRef.current = false;
+      runAnimation(false, next);
+    }
+  }, [animate, animation, delay, runAnimation]);
 
   React.useEffect(
     () => () => {
@@ -392,7 +402,7 @@ function IconWrapper<T extends string>({
   className,
   ...props
 }: IconWrapperProps<T>) {
-  const context = React.useContext(AnimateIconContext);
+  const context = React.use(AnimateIconContext);
 
   if (context) {
     const {
@@ -481,9 +491,13 @@ function IconWrapper<T extends string>({
 function getVariants<
   V extends { default: T; [key: string]: T },
   T extends Record<string, Variants>,
->(animations: V): T {
-  //
-  const { animation: animationType, loop, loopDelay } = useAnimateIconContext();
+>(animations: V, context?: AnimateIconContextValue): T {
+  const { animation: animationType, loop, loopDelay } = context ?? {
+    animation: "default" as StaticAnimations | string,
+    controls: undefined,
+    loop: false,
+    loopDelay: 0,
+  };
 
   let result: T;
 
@@ -493,7 +507,7 @@ function getVariants<
     for (const key in animations.default) {
       if (
         (animationType === "path" || animationType === "path-loop") &&
-        key.includes("group")
+        /group/.test(key)
       ) {
         continue;
       }

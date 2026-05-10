@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import { getPosts } from "@/lib/posts";
 import {
@@ -41,12 +42,25 @@ export const Route = createFileRoute("/_app/blog/")({
 
 function BlogPage() {
   const posts = Route.useLoaderData();
+  const [newPostSlug, setNewPostSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (posts.length > 0) {
+      const firstPost = posts[0];
+      const postDate = new Date(firstPost.meta.date);
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      if (postDate > thirtyDaysAgo) {
+        setNewPostSlug(firstPost.slug);
+      }
+    }
+  }, [posts]);
 
   return (
     <div className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col overflow-hidden border-x border-dashed border-border-primary bg-background px-4 py-8 font-mono md:px-6">
       <div className="mb-12 flex flex-col gap-4">
         <div className="flex items-baseline gap-4">
-          <h1 className="px-2 text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="px-2 text-2xl font-semibold tracking-tight text-foreground">
             Articles
           </h1>
         </div>
@@ -69,14 +83,8 @@ function BlogPage() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {posts.map((post, index) => {
-          const isFirstPost = index === 0;
-          const postDate = new Date(post.meta.date);
-          const thirtyDaysAgo = new Date();
-
-          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-          const isNew = isFirstPost && postDate > thirtyDaysAgo;
+        {posts.map((post) => {
+          const isNew = post.slug === newPostSlug;
 
           return (
             <Link

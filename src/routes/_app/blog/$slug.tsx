@@ -70,7 +70,7 @@ function BlogPostPage() {
   const page = Route.useLoaderData();
 
   return (
-    <article className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col border-x border-dashed border-border-primary bg-background px-6 py-6">
+    <article className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col border-x border-dashed border-border-primary bg-background p-6">
       <Link
 				to="/blog"
 				preload="render"

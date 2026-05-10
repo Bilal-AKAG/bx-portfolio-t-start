@@ -1,10 +1,10 @@
-/* eslint-disable func-style, no-negated-condition */
 "use client";
 
 import type { Variants } from "motion/react";
-import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { LazyMotion, useAnimation, domAnimation } from "motion/react";
+import * as m from "motion/react-m";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ interface LinkedinIconHandle {
 
 interface LinkedinIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  ref?: Ref<LinkedinIconHandle>;
 }
 
 const pathVariants: Variants = {
@@ -83,8 +84,14 @@ const circleVariants: Variants = {
   },
 };
 
-const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 24, ...props }, ref) => {
+const LinkedinIcon = ({
+  onMouseEnter,
+  onMouseLeave,
+  className,
+  size = 24,
+  ref,
+  ...props
+}: LinkedinIconProps) => {
     const pathControls = useAnimation();
     const rectControls = useAnimation();
     const circleControls = useAnimation();
@@ -141,46 +148,46 @@ const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
         onMouseLeave={handleMouseLeave}
         {...props}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={size}
-          height={size}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          viewBox="0 0 24 24"
-        >
-          <motion.path
-            variants={pathVariants}
-            initial="normal"
-            animate={pathControls}
-            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-          />
-          <motion.rect
-            variants={rectVariants}
-            initial="normal"
-            animate={rectControls}
-            x="2"
-            y="9"
-            width="4"
-            height="12"
-          />
-          <motion.circle
-            variants={circleVariants}
-            initial="normal"
-            animate={circleControls}
-            cx="4"
-            cy="4"
-            r="2"
-          />
-        </svg>
+        <LazyMotion features={domAnimation}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={size}
+            height={size}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            viewBox="0 0 24 24"
+          >
+            <m.path
+              variants={pathVariants}
+              initial="normal"
+              animate={pathControls}
+              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+            />
+            <m.rect
+              variants={rectVariants}
+              initial="normal"
+              animate={rectControls}
+              x="2"
+              y="9"
+              width="4"
+              height="12"
+            />
+            <m.circle
+              variants={circleVariants}
+              initial="normal"
+              animate={circleControls}
+              cx="4"
+              cy="4"
+              r="2"
+            />
+          </svg>
+        </LazyMotion>
       </div>
     );
-  }
-);
-
+  };
 LinkedinIcon.displayName = "LinkedinIcon";
 
 export { LinkedinIcon };

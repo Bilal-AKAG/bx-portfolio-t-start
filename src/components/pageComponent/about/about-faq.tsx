@@ -27,7 +27,7 @@ const faqs = [
 ];
 
 const AboutFAQ = () => (
-  <section className="flex flex-col px-4 py-4">
+  <section className="flex flex-col p-4">
     {/* Header - Matching Experience style */}
     <div className="mb-4 flex items-center gap-2 text-zinc-500 dark:text-zinc-400">
       <div className="size-2 bg-zinc-400 dark:bg-zinc-600" />

@@ -78,7 +78,7 @@ const Navigations = () => {
   const pathname = useLocation({ select: (s) => s.pathname });
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex h-fit flex-col p-0.75 sm:p-0.5 border border-dashed  dark:border-border-secondary justify-center items-center backdrop-blur-xl">
-      <div className="border-border-secondary bg-white dark:bg-black">
+      <div className="border-border-secondary bg-white dark:bg-zinc-950">
         <div className="flex flex-row p-2 gap-7">
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
@@ -86,7 +86,7 @@ const Navigations = () => {
               <Tooltip key={item.label}>
                 <TooltipTrigger asChild>
                   <Link
-                    className="group relative flex h-8 w-8 flex-col items-center justify-center outline-none transition-all duration-300"
+                    className="group relative flex size-8 flex-col items-center justify-center outline-none transition-all duration-300"
 										to={item.href}
 										preload="render"
                   >

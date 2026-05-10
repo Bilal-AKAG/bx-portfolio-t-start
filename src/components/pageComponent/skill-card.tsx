@@ -10,8 +10,8 @@ const SkillCard = ({ label, icon, tag }: SkillCardProps) => (
   <div className="group relative flex flex-col items-center justify-center p-2 border border-zinc-200 dark:border-zinc-900 border-dashed bg-zinc-50 dark:bg-black/10 transition-all hover:bg-zinc-100 dark:hover:bg-white/[0.02] hover:border-zinc-300 dark:hover:border-zinc-800 aspect-square overflow-hidden">
     {/* Schematic Markings */}
 
-    <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-zinc-300 dark:border-zinc-600 opacity-50 dark:opacity-50 group-hover:opacity-100 transition-all" />
-    <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-zinc-300 dark:border-zinc-600 opacity-50 dark:opacity-50 group-hover:opacity-100 transition-all" />
+    <div className="absolute top-0 right-0 size-1.5 border-t border-r border-zinc-300 dark:border-zinc-600 opacity-50 dark:opacity-50 group-hover:opacity-100 transition-all" />
+    <div className="absolute bottom-0 left-0 size-1.5 border-b border-l border-zinc-300 dark:border-zinc-600 opacity-50 dark:opacity-50 group-hover:opacity-100 transition-all" />
 
     {/* Technical Metadata - Bits */}
     <div className="absolute top-2 right-2 flex flex-col gap-0.5 opacity-40 dark:opacity-40">

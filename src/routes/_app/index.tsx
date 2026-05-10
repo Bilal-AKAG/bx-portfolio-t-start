@@ -62,7 +62,7 @@ function HomePage() {
       <AnouncmentSection />
       <Profile />
       <Separator />
-      <Suspense fallback={<div>Loading contributions...</div>}>
+      <Suspense fallback={<div>Loading contributions&hellip;</div>}>
         <GithubContribution data={GithubData} />
       </Suspense>
 
