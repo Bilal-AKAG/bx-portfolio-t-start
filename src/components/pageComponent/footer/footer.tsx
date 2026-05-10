@@ -24,6 +24,11 @@ import { ButtonToggle } from "./theme-toggle";
 const Footer = () => {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuVisibleRef = useRef(menuVisible);
+  const [year, setYear] = useState(() => new Date().getFullYear());
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -256,17 +261,17 @@ const Footer = () => {
     sileo.promise(syncPromise, {
       error: {
         description: "Something interrupted the export. Please try again.",
-        icon: <X className="h-4 w-4" />,
+        icon: <X className="size-4" />,
         title: "Sync failed.",
       },
       loading: {
-        icon: <Loader2 className="h-4 w-4 animate-spin" />,
+        icon: <Loader2 className="size-4 animate-spin" />,
         title: "Synchronizing vault...",
       },
       success: {
         description:
           "Your brand pack is downloaded. Check your Downloads folder.",
-        icon: <Check className="h-4 w-4" />,
+        icon: <Check className="size-4" />,
         title: "Assets Ready.",
       },
     });
@@ -363,7 +368,7 @@ const Footer = () => {
                 }}
                 className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
               >
-                <IconImage className="h-4 w-4" />
+                <IconImage className="size-4" />
                 <span>Download Logo PNG</span>
               </DropdownMenuItem>
 
@@ -374,7 +379,7 @@ const Footer = () => {
                 }}
                 className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
               >
-                <IconImageDepth className="h-4 w-4" />
+                <IconImageDepth className="size-4" />
                 <span>Download Logo SVG</span>
               </DropdownMenuItem>
 
@@ -384,7 +389,7 @@ const Footer = () => {
                 onSelect={handleDownloadAssets}
                 className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
               >
-                <IconDocFolder className="h-4 w-4" />
+                <IconDocFolder className="size-4" />
                 <span>Brand Assets (All)</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -395,7 +400,7 @@ const Footer = () => {
               Design & Build
             </p>
             <p className="text-xs leading-none font-mono text-muted-foreground">
-              &copy; {new Date().getFullYear()} —{" "}
+              &copy; {year},{" "}
               <span className="text-foreground/60">Bilal</span>
             </p>
           </div>

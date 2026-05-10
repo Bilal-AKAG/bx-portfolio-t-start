@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, LazyMotion, domAnimation } from "motion/react";
+import * as m from "motion/react-m";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -54,33 +55,35 @@ export const FlipSentences = ({
 
   return (
     <div className="h-[24px] overflow-hidden">
-      <AnimatePresence initial={false} mode="wait">
-        <motion.p
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          className={cn(
-            "select-none text-balance font-medium font-mono text-sm",
-            className
-          )}
-          exit={{
-            opacity: 0,
-            y: -8,
-          }}
-          initial={{
-            opacity: 0,
-            y: 8,
-          }}
-          key={`current-sentence-${currentSentence}`}
-          transition={{
-            duration: 0.5,
-            ease: "linear",
-          }}
-        >
-          {sentences[currentSentence]}
-        </motion.p>
-      </AnimatePresence>
+      <LazyMotion features={domAnimation}>
+        <AnimatePresence initial={false} mode="wait">
+          <m.p
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            className={cn(
+              "select-none text-balance font-medium font-mono text-sm",
+              className
+            )}
+            exit={{
+              opacity: 0,
+              y: -8,
+            }}
+            initial={{
+              opacity: 0,
+              y: 8,
+            }}
+            key={`current-sentence-${currentSentence}`}
+            transition={{
+              duration: 0.5,
+              ease: "linear",
+            }}
+          >
+            {sentences[currentSentence]}
+          </m.p>
+        </AnimatePresence>
+      </LazyMotion>
     </div>
   );
 };

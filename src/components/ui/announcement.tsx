@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 import type { HTMLAttributes } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +14,7 @@ const BadgeContext = createContext<BadgeContextType>({
 });
 
 const useBadgeContext = () => {
-  const context = useContext(BadgeContext);
+  const context = use(BadgeContext);
 
   if (!context) {
     throw new Error("useBadgeContext must be used within a Badge");

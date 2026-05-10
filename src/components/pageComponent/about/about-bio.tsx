@@ -201,7 +201,7 @@ const AboutBio = () => {
             >
               <div className="absolute top-0 left-0 size-1.5 border-t border-l border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
               <div className="absolute bottom-0 right-0 size-1.5 border-b border-r border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
-              <Telegram className="w-[14px] h-[14px] text-zinc-400 dark:text-zinc-600 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors" />
+              <Telegram className="size-[14px] text-zinc-400 dark:text-zinc-600 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors" />
               <span className="font-mono text-xs text-zinc-500 dark:text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors">
                 DM me
               </span>
@@ -218,7 +218,7 @@ const AboutBio = () => {
             rel="noopener noreferrer"
             className="relative block p-3 border border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-black/10 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all group overflow-hidden"
           >
-            <div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none">
+            <div className="absolute bottom-0 left-0 size-8 pointer-events-none">
               <div className="absolute bottom-0 left-0 size-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-white" />
             </div>
 
@@ -228,7 +228,7 @@ const AboutBio = () => {
                   [ 02 ]
                 </span>
                 <svg
-                  className="w-5 h-5 text-zinc-400 dark:text-zinc-600 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors"
+                  className="size-5 text-zinc-400 dark:text-zinc-600 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -261,7 +261,7 @@ const AboutBio = () => {
             rel="noopener noreferrer"
             className="relative block p-3 border border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-black/10 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all group overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none">
+            <div className="absolute top-0 right-0 size-8 pointer-events-none">
               <div className="absolute top-0 right-0 size-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-white" />
             </div>
 

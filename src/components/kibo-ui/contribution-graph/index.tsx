@@ -18,7 +18,7 @@ import {
   Fragment,
   type HTMLAttributes,
   type ReactNode,
-  useContext,
+  use,
   useMemo,
 } from "react";
 import { cn } from "#/lib/utils";
@@ -92,7 +92,7 @@ const ContributionGraphContext =
   createContext<ContributionGraphContextType | null>(null);
 
 const useContributionGraph = () => {
-  const context = useContext(ContributionGraphContext);
+  const context = use(ContributionGraphContext);
 
   if (!context) {
     throw new Error(

@@ -1,7 +1,8 @@
 "use client";
 
 import type { Variants } from "motion/react";
-import { motion, useAnimation } from "motion/react";
+import { LazyMotion, useAnimation, domAnimation } from "motion/react";
+import * as m from "motion/react-m";
 import type { HTMLAttributes, Ref } from "react";
 import { useCallback, useImperativeHandle, useRef } from "react";
 
@@ -147,41 +148,43 @@ const LinkedinIcon = ({
         onMouseLeave={handleMouseLeave}
         {...props}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={size}
-          height={size}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          viewBox="0 0 24 24"
-        >
-          <motion.path
-            variants={pathVariants}
-            initial="normal"
-            animate={pathControls}
-            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-          />
-          <motion.rect
-            variants={rectVariants}
-            initial="normal"
-            animate={rectControls}
-            x="2"
-            y="9"
-            width="4"
-            height="12"
-          />
-          <motion.circle
-            variants={circleVariants}
-            initial="normal"
-            animate={circleControls}
-            cx="4"
-            cy="4"
-            r="2"
-          />
-        </svg>
+        <LazyMotion features={domAnimation}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={size}
+            height={size}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            viewBox="0 0 24 24"
+          >
+            <m.path
+              variants={pathVariants}
+              initial="normal"
+              animate={pathControls}
+              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+            />
+            <m.rect
+              variants={rectVariants}
+              initial="normal"
+              animate={rectControls}
+              x="2"
+              y="9"
+              width="4"
+              height="12"
+            />
+            <m.circle
+              variants={circleVariants}
+              initial="normal"
+              animate={circleControls}
+              cx="4"
+              cy="4"
+              r="2"
+            />
+          </svg>
+        </LazyMotion>
       </div>
     );
   };
