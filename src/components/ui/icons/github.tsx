@@ -1,10 +1,9 @@
-/* eslint-disable func-style, no-negated-condition */
 "use client";
 
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +14,7 @@ interface GithubIconHandle {
 
 interface GithubIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  ref?: Ref<GithubIconHandle>;
 }
 
 const bodyVariants: Variants = {
@@ -51,19 +51,16 @@ const tailVariants: Variants = {
       duration: 0.3,
     },
   },
-  wag: {
-    pathLength: 1,
-    rotate: [0, -15, 15, -10, 10, -5, 5],
-    transition: {
-      duration: 2.5,
-      ease: "easeInOut",
-      repeat: Infinity,
-    },
-  },
 };
 
-const GithubIcon = forwardRef<GithubIconHandle, GithubIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 24, ...props }, ref) => {
+const GithubIcon = ({
+  onMouseEnter,
+  onMouseLeave,
+  className,
+  size = 24,
+  ref,
+  ...props
+}: GithubIconProps) => {
     const bodyControls = useAnimation();
     const tailControls = useAnimation();
     const isControlledRef = useRef(false);
@@ -142,9 +139,7 @@ const GithubIcon = forwardRef<GithubIconHandle, GithubIconProps>(
         </svg>
       </div>
     );
-  }
-);
-
+  };
 GithubIcon.displayName = "GithubIcon";
 
 export { GithubIcon };

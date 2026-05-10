@@ -1,10 +1,9 @@
-/* eslint-disable func-style, no-negated-condition */
 "use client";
 
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +14,7 @@ interface TwitterIconHandle {
 
 interface TwitterIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  ref?: Ref<TwitterIconHandle>;
 }
 
 const pathVariants: Variants = {
@@ -39,8 +39,14 @@ const pathVariants: Variants = {
   },
 };
 
-const TwitterIcon = forwardRef<TwitterIconHandle, TwitterIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 24, ...props }, ref) => {
+const TwitterIcon = ({
+  onMouseEnter,
+  onMouseLeave,
+  className,
+  size = 24,
+  ref,
+  ...props
+}: TwitterIconProps) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -102,9 +108,7 @@ const TwitterIcon = forwardRef<TwitterIconHandle, TwitterIconProps>(
         </svg>
       </div>
     );
-  }
-);
-
+  };
 TwitterIcon.displayName = "TwitterIcon";
 
 export { TwitterIcon };

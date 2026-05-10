@@ -58,10 +58,10 @@ const ProjectCard = ({ project }: { project: Project }) => (
     <div className="absolute inset-0 border border-transparent transition-all duration-300 group-hover:border-border-primary group-hover:border-dashed" />
 
     {/* L-Shaped Corners */}
-    <div className="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
-    <div className="absolute top-0 right-0 h-4 w-4 border-t-2 border-r-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
-    <div className="absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
-    <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
+    <div className="absolute top-0 left-0 size-4 border-t-2 border-l-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
+    <div className="absolute top-0 right-0 size-4 border-t-2 border-r-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
+    <div className="absolute bottom-0 left-0 size-4 border-b-2 border-l-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
+    <div className="absolute bottom-0 right-0 size-4 border-b-2 border-r-2 border-border-tertiary opacity-30 dark:opacity-10 transition-opacity duration-300 group-hover:opacity-100" />
 
     <div className="relative flex flex-col gap-4">
       {/* Preview Area - Website Placeholder */}
@@ -71,9 +71,9 @@ const ProjectCard = ({ project }: { project: Project }) => (
           {/* Browser Header */}
           <div className="flex items-center gap-1.5 border-b border-border-primary/50 bg-muted px-3 py-2 dark:bg-zinc-900/50">
             <div className="flex gap-1">
-              <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50 dark:bg-zinc-700" />
-              <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50 dark:bg-zinc-700" />
-              <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50 dark:bg-zinc-700" />
+              <div className="size-1.5 rounded-full bg-muted-foreground/50 dark:bg-zinc-700" />
+              <div className="size-1.5 rounded-full bg-muted-foreground/50 dark:bg-zinc-700" />
+              <div className="size-1.5 rounded-full bg-muted-foreground/50 dark:bg-zinc-700" />
             </div>
             <div className="ml-2 h-3 w-32 rounded-full bg-muted-foreground/30 dark:bg-zinc-800/50" />
           </div>
@@ -161,14 +161,14 @@ const Projects = () => (
   <section className="flex flex-col gap-8 py-4 p-6 mb-4">
     <div className="flex items-center gap-2 mb-4">
       <div className="size-2 bg-zinc-600" />
-      <span className="font-mono text-sm font-medium text-zinc-200">
+      <span className="font-mono text-sm font-medium text-foreground">
         Projects
       </span>
     </div>
 
     <div className="grid grid-cols-1 gap-x-12 gap-y-12 px-4 md:grid-cols-2">
       {projects.map((project, index) => (
-        <ProjectCard key={index} project={project} />
+        <ProjectCard key={project.title} project={project} />
       ))}
     </div>
   </section>

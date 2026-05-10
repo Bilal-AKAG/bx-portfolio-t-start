@@ -19,7 +19,7 @@ const CornerBracket = ({
   return (
     <div
       className={cn(
-        "absolute h-2 w-2 border-zinc-300 dark:border-zinc-600 opacity-60 dark:opacity-40 transition-opacity",
+        "absolute size-2 border-zinc-300 dark:border-zinc-600 opacity-60 dark:opacity-40 transition-opacity",
         positioning[position]
       )}
     />
@@ -74,8 +74,8 @@ const AboutBio = () => {
         {/* Right: Identity Data Panel */}
         <div className="flex-1 w-full">
           <div className="group/panel relative border border-zinc-200 dark:border-zinc-900 border-dashed bg-zinc-50 dark:bg-black/10 overflow-hidden transition-all hover:border-zinc-300 dark:hover:border-zinc-800">
-            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover/panel:border-zinc-500 dark:group-hover/panel:border-zinc-400" />
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover/panel:border-zinc-500 dark:group-hover/panel:border-zinc-400" />
+            <div className="absolute top-0 right-0 size-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover/panel:border-zinc-500 dark:group-hover/panel:border-zinc-400" />
+            <div className="absolute bottom-0 left-0 size-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover/panel:border-zinc-500 dark:group-hover/panel:border-zinc-400" />
             {/* Panel Header */}
             <div className="flex items-center justify-between px-3 py-2 border-b border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-zinc-900/30">
               <div className="flex gap-1">
@@ -137,9 +137,9 @@ const AboutBio = () => {
                 </span>
                 <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-900 group-hover:bg-zinc-200 dark:group-hover:bg-zinc-800 transition-colors mx-3" />
                 <span className="font-mono text-sm text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-white flex items-center gap-2 transition-colors">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 dark:bg-zinc-500 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-500 dark:bg-zinc-400" />
+                  <span className="relative flex size-2">
+                    <span className="animate-ping absolute inline-flex size-full rounded-full bg-zinc-400 dark:bg-zinc-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full size-2 bg-zinc-500 dark:bg-zinc-400" />
                   </span>
                   Open to Work
                 </span>
@@ -152,8 +152,8 @@ const AboutBio = () => {
       {/* Bottom Section: Biography Text */}
       <div className="flex flex-col gap-6 w-full max-w-2xl">
         <div className="group relative border border-zinc-200 dark:border-zinc-900 border-dashed bg-zinc-50 dark:bg-black/10 p-6 transition-all hover:border-zinc-300 dark:hover:border-zinc-800 overflow-hidden">
-          <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-zinc-400" />
-          <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-zinc-400" />
+          <div className="absolute top-0 right-0 size-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-zinc-400" />
+          <div className="absolute bottom-0 left-0 size-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-zinc-400" />
           {/* Technical Bits - Right */}
           <div className="absolute top-3 right-3 flex flex-col gap-0.5 opacity-40 group-hover:opacity-70 transition-opacity">
             <div className="w-1.5 h-0.5 bg-zinc-300 dark:bg-zinc-600 group-hover:bg-zinc-500 dark:group-hover:bg-zinc-400 transition-colors" />
@@ -162,7 +162,7 @@ const AboutBio = () => {
           </div>
 
           <h2 className="text-xl font-mono font-medium text-zinc-600 dark:text-zinc-400 tracking-tight flex items-center gap-3 transition-colors">
-            <span className="w-2 h-2 bg-zinc-400 dark:bg-zinc-600 animate-pulse transition-colors" />
+            <span className="size-2 bg-zinc-400 dark:bg-zinc-600 animate-pulse transition-colors" />
             I love what I do.
           </h2>
           <p className="text-zinc-500 dark:text-zinc-500 font-mono text-sm leading-relaxed mt-4 pl-5 border-l border-zinc-200 dark:border-zinc-800 group-hover:border-zinc-300 dark:group-hover:border-zinc-700 transition-colors">
@@ -182,8 +182,8 @@ const AboutBio = () => {
               href="mailto:bilal.ali.irp.dev@gmail.com"
               className="group relative flex items-center gap-2 px-3 py-1.5 border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-black/10 hover:bg-zinc-100 dark:hover:bg-white/[0.03] hover:border-zinc-400 dark:hover:border-zinc-600 transition-all overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
-              <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
+              <div className="absolute top-0 left-0 size-1.5 border-t border-l border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
+              <div className="absolute bottom-0 right-0 size-1.5 border-b border-r border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
               <MailCheckIcon
                 size={14}
                 className="text-zinc-400 dark:text-zinc-600 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors"
@@ -199,8 +199,8 @@ const AboutBio = () => {
               rel="noopener noreferrer"
               className="group relative flex items-center gap-2 px-3 py-1.5 border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-black/10 hover:bg-zinc-100 dark:hover:bg-white/[0.03] hover:border-zinc-400 dark:hover:border-zinc-600 transition-all overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
-              <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
+              <div className="absolute top-0 left-0 size-1.5 border-t border-l border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
+              <div className="absolute bottom-0 right-0 size-1.5 border-b border-r border-zinc-300 dark:border-zinc-700 opacity-40 dark:opacity-40 group-hover:opacity-100 group-hover:border-zinc-500 dark:group-hover:border-white/50 transition-all" />
               <Telegram className="w-[14px] h-[14px] text-zinc-400 dark:text-zinc-600 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors" />
               <span className="font-mono text-xs text-zinc-500 dark:text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-white transition-colors">
                 DM me
@@ -219,7 +219,7 @@ const AboutBio = () => {
             className="relative block p-3 border border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-black/10 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all group overflow-hidden"
           >
             <div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none">
-              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-white" />
+              <div className="absolute bottom-0 left-0 size-2 border-b border-l border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-white" />
             </div>
 
             <div className="flex flex-col h-full justify-between gap-4">
@@ -262,7 +262,7 @@ const AboutBio = () => {
             className="relative block p-3 border border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-black/10 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all group overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none">
-              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-white" />
+              <div className="absolute top-0 right-0 size-2 border-t border-r border-zinc-300 dark:border-zinc-600 transition-colors group-hover:border-zinc-500 dark:group-hover:border-white" />
             </div>
 
             <div className="flex flex-col h-full justify-between gap-4">

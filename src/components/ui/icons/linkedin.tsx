@@ -1,10 +1,9 @@
-/* eslint-disable func-style, no-negated-condition */
 "use client";
 
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +14,7 @@ interface LinkedinIconHandle {
 
 interface LinkedinIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  ref?: Ref<LinkedinIconHandle>;
 }
 
 const pathVariants: Variants = {
@@ -83,8 +83,14 @@ const circleVariants: Variants = {
   },
 };
 
-const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 24, ...props }, ref) => {
+const LinkedinIcon = ({
+  onMouseEnter,
+  onMouseLeave,
+  className,
+  size = 24,
+  ref,
+  ...props
+}: LinkedinIconProps) => {
     const pathControls = useAnimation();
     const rectControls = useAnimation();
     const circleControls = useAnimation();
@@ -178,9 +184,7 @@ const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
         </svg>
       </div>
     );
-  }
-);
-
+  };
 LinkedinIcon.displayName = "LinkedinIcon";
 
 export { LinkedinIcon };

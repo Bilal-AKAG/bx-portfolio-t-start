@@ -481,9 +481,13 @@ function IconWrapper<T extends string>({
 function getVariants<
   V extends { default: T; [key: string]: T },
   T extends Record<string, Variants>,
->(animations: V): T {
-  //
-  const { animation: animationType, loop, loopDelay } = useAnimateIconContext();
+>(animations: V, context?: AnimateIconContextValue): T {
+  const { animation: animationType, loop, loopDelay } = context ?? {
+    animation: "default" as StaticAnimations | string,
+    controls: undefined,
+    loop: false,
+    loopDelay: 0,
+  };
 
   let result: T;
 

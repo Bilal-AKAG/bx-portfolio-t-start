@@ -24,7 +24,7 @@ export default function GithubContributionClient({
 }: GithubContributionClientProps) {
   return (
     <ContributionGraph data={contributions}>
-      <ContributionGraphCalendar className="text-gray-500">
+      <ContributionGraphCalendar className="text-zinc-500">
         {({ activity, dayIndex, weekIndex }) => (
           <Tooltip>
             <TooltipTrigger asChild>

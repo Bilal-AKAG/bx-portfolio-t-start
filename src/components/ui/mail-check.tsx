@@ -2,8 +2,8 @@
 
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,7 @@ interface MailCheckIconHandle {
 
 interface MailCheckIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  ref?: Ref<MailCheckIconHandle>;
 }
 
 const CHECK_VARIANTS: Variants = {
@@ -34,8 +35,14 @@ const CHECK_VARIANTS: Variants = {
   },
 };
 
-const MailCheckIcon = forwardRef<MailCheckIconHandle, MailCheckIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+const MailCheckIcon = ({
+  onMouseEnter,
+  onMouseLeave,
+  className,
+  size = 28,
+  ref,
+  ...props
+}: MailCheckIconProps) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -100,9 +107,7 @@ const MailCheckIcon = forwardRef<MailCheckIconHandle, MailCheckIconProps>(
         </svg>
       </div>
     );
-  }
-);
-
+  };
 MailCheckIcon.displayName = "MailCheckIcon";
 
 export { MailCheckIcon };

@@ -4,8 +4,8 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "motion/react";
-import { forwardRef, useImperativeHandle, useRef } from "react";
-import type { PropsWithChildren } from "react";
+import { useImperativeHandle, useRef } from "react";
+import type { PropsWithChildren, Ref } from "react";
 
 const DURATION_SECONDS = 1.2;
 const MAX_DISPLACEMENT = 300;
@@ -15,10 +15,10 @@ const transition = {
   ease: (time: number) => 1 - (1 - time) ** 3,
 };
 
-export const ThanosSnapEffect = forwardRef<
-  { handleClick: () => Promise<void> },
-  PropsWithChildren
->(({ children }, ref) => {
+export const ThanosSnapEffect = ({
+  children,
+  ref,
+}: PropsWithChildren<{ ref?: Ref<{ handleClick: () => Promise<void> }> }>) => {
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const displacementMapRef = useRef<SVGFEDisplacementMapElement>(null);
   const dissolveTargetRef = useRef<HTMLDivElement>(null);
@@ -111,4 +111,4 @@ export const ThanosSnapEffect = forwardRef<
       </svg>
     </div>
   );
-});
+};

@@ -114,7 +114,7 @@ const Footer = () => {
     sileo.success({
       description:
         "The full SVG markup is now in your clipboard, ready to paste into code or design tools.",
-      icon: <Copy className="h-4 w-4" />,
+      icon: <Copy className="size-4" />,
       title: "Copied",
     });
   };
@@ -281,11 +281,18 @@ const Footer = () => {
               <TooltipTrigger asChild>
                 <DropdownMenuTrigger asChild>
                   <div
-                    className="flex h-8 w-8 cursor-context-menu items-center justify-center outline-hidden"
+                    className="flex size-8 cursor-context-menu items-center justify-center outline-hidden"
                     onContextMenu={handleContextMenu}
                     onClick={(event) => {
                       event.preventDefault();
                     }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        handleContextMenu(event as unknown as React.MouseEvent<HTMLDivElement>);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
                   >
                     <svg
                       ref={svgRef}
@@ -325,7 +332,7 @@ const Footer = () => {
               <TooltipContent>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <span className="text-white">Right-click</span>
-                  <IconButton className="h-4 w-4" />
+                  <IconButton className="size-4" />
                 </div>
 								</TooltipContent>
             )}
@@ -343,7 +350,7 @@ const Footer = () => {
                 onSelect={handleCopySVG}
                 className="group/item flex cursor-pointer items-center gap-3 rounded-none px-3 py-2 text-[11px] text-muted-foreground outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:text-current"
               >
-                <IconClipboard className="h-4 w-4" />
+                <IconClipboard className="size-4" />
                 <span>Copy Logo as SVG</span>
               </DropdownMenuItem>
 

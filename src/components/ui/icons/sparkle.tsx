@@ -1,10 +1,9 @@
-/* eslint-disable func-style, no-negated-condition */
 "use client";
 
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +14,7 @@ export interface SparklesIconHandle {
 
 interface SparklesIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  ref?: Ref<SparklesIconHandle>;
 }
 
 const sparkleVariants: Variants = {
@@ -50,8 +50,14 @@ const starVariants: Variants = {
   },
 };
 
-const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+const SparklesIcon = ({
+  onMouseEnter,
+  onMouseLeave,
+  className,
+  size = 28,
+  ref,
+  ...props
+}: SparklesIconProps) => {
     const starControls = useAnimation();
     const sparkleControls = useAnimation();
     const isControlledRef = useRef(false);
@@ -141,9 +147,7 @@ const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
         </svg>
       </div>
     );
-  }
-);
-
+  };
 SparklesIcon.displayName = "SparklesIcon";
 
 export { SparklesIcon };
