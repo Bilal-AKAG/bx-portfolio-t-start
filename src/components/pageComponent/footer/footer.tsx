@@ -405,7 +405,7 @@ const Footer = () => {
                 </DropdownMenuTrigger>
               </TooltipTrigger>
             {!menuVisible && (
-              <TooltipContent>
+              <TooltipContent className="hidden sm:block">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <span className="text-white">Right-click</span>
                   <IconButton className="size-4" />
