@@ -9,18 +9,23 @@ import {
 import { cn } from "@/lib/utils";
 
 import Social from "./social";
+import { IconFlame } from "nucleo-glass";
 
 const Profile = () => (
   <div className="flex w-full border-border-primary border-y border-dashed">
     <div className="flex w-full flex-col">
       {/* {hey it's me wrapper } */}
-      <div className="flex items-center gap-2 px-4">
-        <span>
-          <p className="font-medium font-mono text-[12px] text-muted-foreground">
-            Hi, I'm
-          </p>
+      <div className="flex items-center gap-2 px-4 ">
+        <span className="flex gap-1">
+
+					<span className=" border-x border-dashed border-border-tertiary  text-xs flex justify-center items-center text-foreground px-1 gap-0.5">
+						Monochrome v1.0
+						<IconFlame size={12}/>
+					</span>
+
         </span>
-        <Heart />
+
+
       </div>
       {/* {name section with soical } */}
       <div className=" flex w-full items-center justify-between border-border-primary border-y border-dashed px-4">
