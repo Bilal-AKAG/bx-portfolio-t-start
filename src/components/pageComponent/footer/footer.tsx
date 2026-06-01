@@ -75,7 +75,7 @@ const FooterLogo = ({ svgRef }: FooterLogoProps) => (
     width="32"
     height="32"
     viewBox="0 0 500 500"
-    className="block origin-center transition-transform duration-700 ease-out hover:rotate-180 hover:scale-105 active:scale-95"
+    className="block origin-center transition-transform cursor-pointer duration-700 ease-out hover:rotate-180 hover:scale-105 active:scale-95"
   >
     <rect x="25" y="25" width="450" height="450" fill="#000000" />
     <rect
