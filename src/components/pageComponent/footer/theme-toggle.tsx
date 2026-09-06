@@ -17,12 +17,11 @@ export const ButtonToggle = () => {
   const hydrated = useHydrated();
   const [play] = useSound(switchOffSound);
 
-
   useHotkey("T", () => {
     setTheme(theme === "light" ? "dark" : "light");
     play();
-	});
-  
+  });
+
   if (!hydrated) {
     return (
       <div className="flex items-center justify-between border border-border-tertiary border-dashed ">
@@ -48,11 +47,11 @@ export const ButtonToggle = () => {
               " cursor-pointer flex justify-center items-center transition-all p-1",
               isLight
                 ? "bg-primary text-primary-foreground opacity-100"
-                : "opacity-40 hover:opacity-70"
+                : "opacity-40 hover:opacity-70",
             )}
             onClick={() => {
-							setTheme("light");
-							theme === "dark" ? play() : null;
+              setTheme("light");
+              theme === "dark" ? play() : null;
             }}
           >
             <Sun size={14} />
@@ -63,7 +62,7 @@ export const ButtonToggle = () => {
               "cursor-pointer flex justify-center items-center transition-all p-1",
               isDark
                 ? "bg-primary text-primary-foreground opacity-100"
-                : "opacity-40 hover:opacity-70"
+                : "opacity-40 hover:opacity-70",
             )}
             onClick={() => {
               setTheme("dark");
@@ -77,7 +76,7 @@ export const ButtonToggle = () => {
       </TooltipTrigger>
       <TooltipContent className="hidden sm:block">
         <span>
-          Press <Kbd>T</Kbd> to toggle theme
+          Press <Kbd>t</Kbd> to toggle Themes
         </span>
       </TooltipContent>
     </Tooltip>
