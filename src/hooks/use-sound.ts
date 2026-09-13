@@ -28,20 +28,23 @@ export function useSound(
     sound.duration ?? null
   );
   const sourceRef = useRef<AudioBufferSourceNode | null>(null);
-  const gainRef = useRef<GainNode | null>(null);
   const bufferRef = useRef<AudioBuffer | null>(null);
+  const decodePromiseRef = useRef<Promise<AudioBuffer> | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    decodeAudioData(sound.dataUri).then((buffer) => {
-      if (!cancelled) {
-        bufferRef.current = buffer;
-        setDuration(buffer.duration);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
+  // Decoded lazily on first play: no AudioContext creation, base64 decode,
+  // or main-thread work on page load when the user may never press anything.
+  const ensureBuffer = useCallback(() => {
+    if (!decodePromiseRef.current) {
+      decodePromiseRef.current = decodeAudioData(sound.dataUri).then(
+        (buffer) => {
+          bufferRef.current = buffer;
+          setDuration(buffer.duration);
+          return buffer;
+        }
+      );
+    }
+
+    return decodePromiseRef.current;
   }, [sound.dataUri]);
 
   const stop = useCallback(() => {
@@ -59,7 +62,13 @@ export function useSound(
 
   const play = useCallback(
     (overrides?: { volume?: number; playbackRate?: number }) => {
-      if (!soundEnabled || !bufferRef.current) return;
+      if (!soundEnabled) return;
+
+      if (!bufferRef.current) {
+        // First interaction warms the cache, then plays.
+        void ensureBuffer().then(() => play(overrides));
+        return;
+      }
 
       const ctx = getAudioContext();
 
@@ -88,23 +97,16 @@ export function useSound(
 
       source.start(0);
       sourceRef.current = source;
-      gainRef.current = gain;
       setIsPlaying(true);
       onPlay?.();
     },
-    [soundEnabled, playbackRate, volume, interrupt, stop, onPlay, onEnd]
+    [soundEnabled, playbackRate, volume, interrupt, stop, onPlay, onEnd, ensureBuffer]
   );
 
   const pause = useCallback(() => {
     stop();
     onPause?.();
   }, [stop, onPause]);
-
-  useEffect(() => {
-    if (gainRef.current) {
-      gainRef.current.gain.value = volume;
-    }
-  }, [volume]);
 
   useEffect(() => {
     return () => {

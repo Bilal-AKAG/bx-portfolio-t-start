@@ -6,11 +6,11 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "#/components/ui/tooltip";
+} from "@/components/ui/tooltip";
 import { useSound } from "@/hooks/use-sound";
 import { switchOffSound } from "@/lib/switch-off";
 import { cn } from "@/lib/utils";
-import { Kbd } from "#/components/ui/kbd";
+import { Kbd } from "@/components/ui/kbd";
 
 export const ButtonToggle = () => {
   const { theme, setTheme } = useTheme();

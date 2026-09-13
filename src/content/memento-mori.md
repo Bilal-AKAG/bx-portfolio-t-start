@@ -108,6 +108,4 @@ Protect your attention.
 Choose depth over noise.
 Treat each week like it counts, because it does.
 
-<FinalLink href="https://you-think-you-have-time-huh.vercel.app/">
-  Link
-</FinalLink>
+[See the life-in-weeks project](https://you-think-you-have-time-huh.vercel.app/)

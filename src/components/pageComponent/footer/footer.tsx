@@ -1,6 +1,5 @@
 "use client";
 
-import JSZip from "jszip";
 import { Check, Copy, Loader2, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { IconButton, IconClipboard, IconDocFolder, IconImage, IconImageDepth } from "nucleo-glass";
@@ -281,6 +280,7 @@ const Footer = () => {
     closeMenu();
 
     const syncPromise = (async () => {
+      const { default: JSZip } = await import("jszip");
       const zip = new JSZip();
       const folder = zip.folder("bilal-brand-assets");
 

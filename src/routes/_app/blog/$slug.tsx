@@ -1,4 +1,4 @@
-import { MDXContent } from "@content-collections/mdx/react";
+import { Markdown } from "@tanstack/markdown/react";
 import {
   Link,
   createFileRoute,
@@ -7,8 +7,8 @@ import {
 } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
-import { formatDate } from "#/lib/utils";
-import { getMDXComponents } from "@/components/mdx";
+import { formatDate } from "@/lib/utils";
+import { getMarkdownComponents } from "@/components/mdx";
 import { getPostPage } from "@/lib/posts";
 import {
   buildArticleSeoHead,
@@ -66,14 +66,17 @@ export const Route = createFileRoute("/_app/blog/$slug")({
   component: BlogPostPage,
 });
 
+// Hoisted: identical object every render, no per-render allocation.
+const markdownComponents = getMarkdownComponents();
+
 function BlogPostPage() {
   const page = Route.useLoaderData();
 
   return (
     <article className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col border-x border-dashed border-border-primary bg-background p-6">
       <Link
-				to="/blog"
-				preload="render"
+        to="/blog"
+        preload="render"
         className="group mb-8 mt-2 flex w-fit items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft
@@ -93,7 +96,9 @@ function BlogPostPage() {
       </div>
 
       <div className="w-full max-w-none pb-10 font-mono antialiased">
-        <MDXContent code={page.mdx} components={getMDXComponents()} />
+        <Markdown components={markdownComponents}>
+          {page.document}
+        </Markdown>
       </div>
     </article>
   );

@@ -3,6 +3,7 @@ import { Outlet, createFileRoute } from "@tanstack/react-router";
 import Footer from "@/components/pageComponent/footer/footer";
 import Navigations from "@/components/pageComponent/header";
 import Separator from "@/components/pageComponent/separator";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const Route = createFileRoute("/_app")({
   component: AppLayout,
@@ -10,7 +11,8 @@ export const Route = createFileRoute("/_app")({
 
 function AppLayout() {
   return (
-    <div className="app-shell">
+    <TooltipProvider delayDuration={0}>
+      <div className="app-shell">
       <main
         id="content"
         className="site-main flex min-h-[100dvh] flex-col bg-background pb-10 sm:pb-0"
@@ -33,5 +35,6 @@ function AppLayout() {
         </div>
       </main>
     </div>
+    </TooltipProvider>
   );
 }

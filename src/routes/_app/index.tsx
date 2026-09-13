@@ -1,10 +1,9 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 
 import AnouncmentSection from "@/components/pageComponent/home/anouncment";
 import Experience from "@/components/pageComponent/home/experience";
-import GithubContribution from "@/components/pageComponent/home/github-contribution";
 import Profile from "@/components/pageComponent/home/profile";
 import Projects from "@/components/pageComponent/home/projects";
 import Separator from "@/components/pageComponent/separator";
@@ -25,7 +24,16 @@ interface GithubContributionProps {
 const gitHubData = queryOptions<GithubContributionProps>({
   queryKey: ["githubData"],
   queryFn: () => getGithubData(),
+  staleTime: 24 * 60 * 60 * 1000,
+  gcTime: 24 * 60 * 60 * 1000,
+  refetchOnWindowFocus: false,
 });
+
+// Below-the-fold contribution graph (date-fns + SVG calendar) loads on demand
+// so it stays out of the initial home chunk.
+const GithubContribution = lazy(
+  () => import("@/components/pageComponent/home/github-contribution")
+);
 
 export const Route = createFileRoute("/_app/")({
   component: HomePage,
