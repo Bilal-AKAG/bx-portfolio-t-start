@@ -5,12 +5,10 @@ export const getGithubData = async () => {
     );
 
     if (!res.ok) {
-      console.error("Failed to fetch contribution data:");
       return null;
     }
     return await res.json();
-  } catch (error) {
-    console.error("Error fetching contribution data:", error);
+  } catch {
     return null;
   }
 };

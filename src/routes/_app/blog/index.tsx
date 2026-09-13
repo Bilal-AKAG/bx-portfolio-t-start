@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 
 import { getPosts } from "@/lib/posts";
 import {
@@ -42,19 +41,12 @@ export const Route = createFileRoute("/_app/blog/")({
 
 function BlogPage() {
   const posts = Route.useLoaderData();
-  const [newPostSlug, setNewPostSlug] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (posts.length > 0) {
-      const firstPost = posts[0];
-      const postDate = new Date(firstPost.meta.date);
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      if (postDate > thirtyDaysAgo) {
-        setNewPostSlug(firstPost.slug);
-      }
-    }
-  }, [posts]);
+  const firstPost = posts[0];
+  const newPostSlug =
+    firstPost &&
+    new Date(firstPost.meta.date).getTime() > Date.now() - 30 * 24 * 60 * 60 * 1000
+      ? firstPost.slug
+      : null;
 
   return (
     <div className="m-auto flex min-h-[calc(100dvh-100px)] w-full max-w-175 flex-col overflow-hidden border-x border-dashed border-border-primary bg-background px-4 py-8 font-mono md:px-6">

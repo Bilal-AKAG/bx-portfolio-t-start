@@ -1,21 +1,10 @@
-import { ArrowRight } from "lucide-react";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 import { cn } from "@/lib/utils";
 
 type AnchorProps = ComponentPropsWithoutRef<"a">;
 
-interface FinalLinkProps extends AnchorProps {
-  children?: ReactNode;
-}
-
-function FinalLink({
-  children,
-  className,
-  rel,
-  target,
-  ...props
-}: FinalLinkProps) {
+function MarkdownLink({ className, rel, target, ...props }: AnchorProps) {
   const resolvedRel =
     target === "_blank"
       ? [rel, "noopener", "noreferrer"].filter(Boolean).join(" ")
@@ -25,41 +14,18 @@ function FinalLink({
     <a
       {...props}
       className={cn(
-        "group flex w-fit items-center gap-1 font-mono text-sm text-foreground underline underline-offset-4 transition-all hover:text-foreground/80",
+        "font-medium underline underline-offset-4 decoration-muted-foreground/50 transition-all hover:text-foreground hover:decoration-solid",
         className
       )}
       rel={resolvedRel}
       target={target}
-    >
-      <span>{children}</span>
-      <ArrowRight
-        size={10}
-        className="inline-block -rotate-45 transform transition-transform duration-200 ease-out group-hover:translate-x-1 group-hover:-translate-y-0.5"
-      />
-    </a>
+    />
   );
 }
 
-export function getMDXComponents() {
+export function getMarkdownComponents() {
   return {
-    a: ({ className, rel, target, ...props }: AnchorProps) => {
-      const resolvedRel =
-        target === "_blank"
-          ? [rel, "noopener", "noreferrer"].filter(Boolean).join(" ")
-          : rel;
-
-      return (
-        <a
-          {...props}
-          className={cn(
-            "font-medium underline underline-offset-4 decoration-muted-foreground/50 transition-all hover:text-foreground hover:decoration-solid",
-            className
-          )}
-          rel={resolvedRel}
-          target={target}
-        />
-      );
-    },
+    a: MarkdownLink,
     blockquote: ({
       className,
       ...props
@@ -111,10 +77,30 @@ export function getMDXComponents() {
         className={cn("ml-6 list-disc text-foreground/80", className)}
       />
     ),
+    ol: ({ className, ...props }: ComponentPropsWithoutRef<"ol">) => (
+      <ol
+        {...props}
+        className={cn("ml-6 list-decimal text-foreground/80", className)}
+      />
+    ),
     strong: ({ className, ...props }: ComponentPropsWithoutRef<"strong">) => (
       <strong
         {...props}
         className={cn("font-bold text-foreground", className)}
+      />
+    ),
+    em: ({ className, ...props }: ComponentPropsWithoutRef<"em">) => (
+      <em {...props} className={cn("text-foreground/90", className)} />
+    ),
+    hr: ({ className, ...props }: ComponentPropsWithoutRef<"hr">) => (
+      <hr {...props} className={cn("my-8 border-border", className)} />
+    ),
+    img: ({ className, ...props }: ComponentPropsWithoutRef<"img">) => (
+      <img
+        loading="lazy"
+        decoding="async"
+        {...props}
+        className={cn("rounded-md", className)}
       />
     ),
     h1: ({ className, children, ...props }: ComponentPropsWithoutRef<"h1">) => (
@@ -132,7 +118,7 @@ export function getMDXComponents() {
       <h2
         {...props}
         className={cn(
-          "mt-10 scroll-m-20 border-b border-border pb-2  text-xl font-bold tracking-tight text-foreground first:mt-0",
+          "mt-10 scroll-m-20 border-b border-border pb-2 text-xl font-bold tracking-tight text-foreground first:mt-0",
           className
         )}
       >
@@ -150,6 +136,19 @@ export function getMDXComponents() {
         {children}
       </h3>
     ),
-    FinalLink,
+    h4: ({ className, children, ...props }: ComponentPropsWithoutRef<"h4">) => (
+      <h4
+        {...props}
+        className={cn(
+          "mt-8 scroll-m-20 text-lg font-semibold tracking-tight text-foreground",
+          className
+        )}
+      >
+        {children}
+      </h4>
+    ),
   };
 }
+
+/** @deprecated Use `getMarkdownComponents` instead. Kept for backwards compat. */
+export const getMDXComponents = getMarkdownComponents;

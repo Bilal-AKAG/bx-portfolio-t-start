@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppSkillRouteImport } from './routes/_app/skill'
 import { Route as AppAboutRouteImport } from './routes/_app/about'
+import { Route as AppSkillRouteImport } from './routes/_app/skill'
 import { Route as AppBlogIndexRouteImport } from './routes/_app/blog/index'
 import { Route as AppBlogSlugRouteImport } from './routes/_app/blog/$slug'
 
@@ -25,14 +25,14 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppSkillRoute = AppSkillRouteImport.update({
-  id: '/skill',
-  path: '/skill',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppAboutRoute = AppAboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSkillRoute = AppSkillRouteImport.update({
+  id: '/skill',
+  path: '/skill',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppBlogIndexRoute = AppBlogIndexRouteImport.update({
@@ -104,18 +104,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/skill': {
-      id: '/_app/skill'
-      path: '/skill'
-      fullPath: '/skill'
-      preLoaderRoute: typeof AppSkillRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/_app/about': {
       id: '/_app/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AppAboutRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/skill': {
+      id: '/_app/skill'
+      path: '/skill'
+      fullPath: '/skill'
+      preLoaderRoute: typeof AppSkillRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_app/blog/': {
