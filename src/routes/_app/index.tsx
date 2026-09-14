@@ -2,7 +2,6 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy } from "react";
 
-import AnouncmentSection from "@/components/pageComponent/home/anouncment";
 import Experience from "@/components/pageComponent/home/experience";
 import Profile from "@/components/pageComponent/home/profile";
 import Projects from "@/components/pageComponent/home/projects";
@@ -67,7 +66,6 @@ function HomePage() {
 
   return (
     <div className="m-auto flex max-w-175 w-full flex-col overflow-hidden border-x border-dashed border-border-primary bg-background pt-4">
-      <AnouncmentSection />
       <Profile />
       <Separator />
       <Suspense fallback={<div>Loading contributions&hellip;</div>}>
