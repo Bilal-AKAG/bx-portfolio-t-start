@@ -1,6 +1,22 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import '@fontsource-variable/doto/wght.css';
+// IBM Plex Mono — self-hosted via Fontsource. Only the weights/styles used
+// by the site (400/500/600/700 + italics), so Vite bundles ~6 woff2 files
+// instead of all 14. Each file uses unicode-range subsetting with
+// font-display: swap, so browsers fetch only the subsets they need.
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/400-italic.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
+import '@fontsource/ibm-plex-mono/700.css';
+import '@fontsource/ibm-plex-mono/700-italic.css';
+// Preload the above-the-fold font files so the browser fetches them with
+// the CSS instead of after first paint — narrows the fallback→webfont
+// swap window that was reflowing text (layout shift).
+import dotoLatinWght from '@fontsource-variable/doto/files/doto-latin-wght-normal.woff2?url';
+import ibmPlexMonoLatin400 from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
+import ibmPlexMonoLatin500 from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2?url';
 import {
   HeadContent,
   Outlet,
@@ -25,6 +41,27 @@ interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     links: [
+      {
+        as: "font",
+        crossOrigin: "anonymous",
+        href: dotoLatinWght,
+        rel: "preload",
+        type: "font/woff2",
+      },
+      {
+        as: "font",
+        crossOrigin: "anonymous",
+        href: ibmPlexMonoLatin400,
+        rel: "preload",
+        type: "font/woff2",
+      },
+      {
+        as: "font",
+        crossOrigin: "anonymous",
+        href: ibmPlexMonoLatin500,
+        rel: "preload",
+        type: "font/woff2",
+      },
       {
         href: appCss,
         rel: "stylesheet",

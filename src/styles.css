@@ -4,62 +4,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-	font-family: "Ioskeley Mono";
-	src: url("/IoskeleyMono-Web/WOFF2/IoskeleyMono-Regular.woff2") format("woff2");
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Ioskeley Mono";
-	src: url("/IoskeleyMono-Web/WOFF2/IoskeleyMono-Italic.woff2") format("woff2");
-	font-style: italic;
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Ioskeley Mono";
-	src: url("/IoskeleyMono-Web/WOFF2/IoskeleyMono-Medium.woff2") format("woff2");
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Ioskeley Mono";
-	src: url("/IoskeleyMono-Web/WOFF2/IoskeleyMono-SemiBold.woff2") format("woff2");
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Ioskeley Mono";
-	src: url("/IoskeleyMono-Web/WOFF2/IoskeleyMono-Bold.woff2") format("woff2");
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Ioskeley Mono";
-	src: url("/IoskeleyMono-Web/WOFF2/IoskeleyMono-BoldItalic.woff2") format("woff2");
-	font-style: italic;
-	font-weight: 700;
-	font-display: swap;
-}
-
 :root {
 	isolation: isolate;
 	--radius: 0.625rem;
 
 	--font-figtree: "Figtree", ui-sans-serif, system-ui, sans-serif;
 	--font-doto: "Doto Variable", ui-sans-serif, system-ui, sans-serif;
-	--font-ioskeley-mono:
-		"Ioskeley Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+	--font-ibm-plex-mono:
+		"IBM Plex Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
 	--font-jetbrain-mono:
 		"JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
@@ -169,7 +121,7 @@
 	--breakpoint-nav: 1800px;
 
 	--font-sans: var(--font-figtree);
-	--font-mono: var(--font-ioskeley-mono);
+	--font-mono: var(--font-ibm-plex-mono);
 	--font-jetbrain-mono: var(--font-jetbrain-mono);
 	--font-figtree: var(--font-figtree);
 	--font-doto: var(--font-doto);
@@ -251,7 +203,7 @@ a {
 }
 
 code {
-	font-family: var(--font-ioskeley-mono);
+	font-family: var(--font-ibm-plex-mono);
 }
 
 @layer base {

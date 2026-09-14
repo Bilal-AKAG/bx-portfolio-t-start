@@ -11,7 +11,9 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart(),
     nitro(),
-    viteReact(),
+    viteReact({
+      compiler: true,
+    }),
   ],
   resolve: {
     alias: {

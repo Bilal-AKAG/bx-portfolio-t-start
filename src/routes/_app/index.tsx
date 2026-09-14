@@ -61,6 +61,24 @@ export const Route = createFileRoute("/_app/")({
     }),
 });
 
+// Fixed-height skeleton matching the contribution graph's real box
+// (130px calendar + gap + footer ≈ 160px). Without it, the lazy chunk
+// swapping in pushes Experience/Projects down — a layout shift.
+const ContributionFallback = () => (
+  <div
+    aria-hidden="true"
+    className="px-4 mt-5 mb-3 min-h-[160px] flex flex-col justify-center"
+  >
+    <div className="flex flex-col gap-2 animate-pulse">
+      <div className="h-[130px] rounded-sm bg-muted/60 dark:bg-zinc-900/60" />
+      <div className="flex items-center justify-between">
+        <div className="h-4 w-36 rounded-sm bg-muted/60 dark:bg-zinc-900/60" />
+        <div className="h-4 w-24 rounded-sm bg-muted/60 dark:bg-zinc-900/60" />
+      </div>
+    </div>
+  </div>
+);
+
 function HomePage() {
   const { data: GithubData } = useSuspenseQuery(gitHubData);
 
@@ -68,7 +86,7 @@ function HomePage() {
     <div className="m-auto flex max-w-175 w-full flex-col overflow-hidden border-x border-dashed border-border-primary bg-background pt-4">
       <Profile />
       <Separator />
-      <Suspense fallback={<div>Loading contributions&hellip;</div>}>
+      <Suspense fallback={<ContributionFallback />}>
         <GithubContribution data={GithubData} />
       </Suspense>
 

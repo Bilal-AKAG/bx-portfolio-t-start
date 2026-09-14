@@ -56,7 +56,13 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      // NOTE: the open state intentionally animates opacity only, not height.
+      // A height grow animation (e.g. animate-accordion-down) replays from 0
+      // on every full page load for items open via defaultValue — Radix only
+      // suppresses mount animations post-hydration, after the shift happened —
+      // pushing all content below down (CLS). Fading keeps the transition
+      // without moving layout; closing still collapses with height.
+      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:duration-200 overflow-hidden text-sm"
       {...props}
     >
       <div className={cn("pt-0 pb-4", className)}>{children}</div>
